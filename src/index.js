@@ -1,13 +1,20 @@
-let age = parseInt(prompt("What's your age?"));
-console.log(age);
+const liczbaPytan = 5;
 
-if (!isNaN(age){
-    console.log('Ok');
-} else {
-    console.log('Not Ok');
+function getRandomInteger(){
+    return 0;
 }
-// if (age >= 18) {
-//     alert(`Nice to meet you, you have ${age}!`);
-// } else {
-//     alert('You are not have 18 years old');
-// }
+
+let poprawneOdp = 0;
+
+for (let i = 0; i < liczbaPytan; i++) {
+    let a = getRandomInteger();
+    let b = getRandomInteger();
+    prompt('Ile jest ' + a + ' * ' + b + '?');
+    let wynik = prompt('Ile jest ' + a + ' * ' + b + '?');
+    let ab = a * b;
+    if (wynik === ab) {
+        poprawneOdp++;
+    }
+     
+
+}
