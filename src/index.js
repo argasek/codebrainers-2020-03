@@ -1,15 +1,19 @@
-let age; 
+const liczbaPytan = 5;
 
-do {
-    age = parseInt(prompt("What's your age"));
-} while(isNaN(age) === true);
-
-
-if (age >= 18) {
-    alert(`Nice to meet you, you have ${age}!`);
-} else {
-    alert('You are not have 18 years old');
+function getRandomInteger() {
+    return 5;
 }
 
+let poprawneOdpowiedzi = 0;
 
-
+for (let i = 0; i < liczbaPytan; i++) {
+    let a = getRandomInteger();
+    let b = getRandomInteger();
+    let wynik = prompt('Ile jest ' + a + ' * ' + b + '?'); 
+    wynik = parseInt(wynik);
+    let ab = a * b;
+    if (wynik === ab) {
+        poprawneOdpowiedzi++;
+    }
+}
+console.log('Liczba poprawnych odpowiedzi ' + poprawneOdpowiedzi);
