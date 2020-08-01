@@ -36,31 +36,33 @@ function drawNumber(possibleNumbers) {
 let drawnNumber;
 
 function compareDrawnNumbers(numbers) {
-  let result = true;
-  for(let i = 0; i<expectedNumbers.length; i++){
-    if (numbers[i] !== expectedNumbers[i]){
-      result = false;
+  let numberOfMatches = 0
+  for(let i=0; i<expectedNumbers.length; i++){
+    for(let j =0; j < numbers.length; j++){
+      if(expectedNumbers[i] === numbers[j]){
+        numberOfMatches++;
+      }
     }
   }
-  return result;
+  return numberOfMatches === expectedNumbers.length;
 }
 
 
-const result = compareDrawnNumbers([11, 39, 12, 40, 7, 17]);
-
-console.log(result);
-
-
-// let drawnNumbers = [];
-//
-// let number = 0
 
 
 
-// do {
-//   for (let i=0; i < 6; i++){
-//     drawnNumber = drawNumber(possibleNumbers);
-//     drawnNumbers.push(drawnNumber);
-//   }
-//   console.log(drawnNumbers);
-// } while(!compareDrawnNumbers(drawnNumbers))
+
+
+let drawnNumbers = [];
+
+let number = 0
+
+
+
+do {
+  for (let i=0; i < 6; i++){
+    drawnNumber = drawNumber(possibleNumbers);
+    drawnNumbers.push(drawnNumber);
+  }
+  console.log(drawnNumbers);
+} while(!compareDrawnNumbers(drawnNumbers))
