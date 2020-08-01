@@ -42,16 +42,27 @@ function drawNumber(possibleNumbers) {
 
 let drawnNumber;
 
+function compareDrawnNumbers(numbers) {
+  let result = true;
+  for(let i =0; i<expectedNumbers.length; i++){
+    if (numbers[i] !== expectedNumbers[i]){
+      result = false;
+    }
+  }
+  return result;
+}
+
+
 let drawnNumbers = [];
 
 let number = 0
 
-for (let i=0; i < 6; i++){
-  drawnNumber = drawNumber(possibleNumbers);
-  drawnNumbers.push(drawnNumber);
-}
-console.log(drawnNumbers);
-// do {
-//   drawnNumber = getRandomInt(1, 49);
-//   console.log(drawnNumber);
-// } while(searchNumber(drawnNumber))
+
+
+do {
+  for (let i=0; i < 6; i++){
+    drawnNumber = drawNumber(possibleNumbers);
+    drawnNumbers.push(drawnNumber);
+  }
+  console.log(drawnNumbers);
+} while(!compareDrawnNumbers(drawnNumbers))
