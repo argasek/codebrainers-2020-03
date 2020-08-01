@@ -20,13 +20,6 @@ function searchNumber(x) {
   }
   return false;
 }
-//                  0  1  2  3  4  5  6  7  8  9
-// const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-// const numbers = [1, 2, 3, 4, 5, 6, 8, 9, 10];
-// const numbers = [1, 2, 3, 5, 6, 8, 9, 10];
-// const numbers = [1, 3, 5, 6, 8, 9, 10];
-// const numbers = [3, 5, 6, 8, 9, 10];
-// const numbers = [3, 6, 8, 9, 10];
 
 let possibleNumbers = [];
 for (let i =1; i < 49 + 1; i++) {
@@ -44,7 +37,7 @@ let drawnNumber;
 
 function compareDrawnNumbers(numbers) {
   let result = true;
-  for(let i =0; i<expectedNumbers.length; i++){
+  for(let i = 0; i<expectedNumbers.length; i++){
     if (numbers[i] !== expectedNumbers[i]){
       result = false;
     }
@@ -53,16 +46,21 @@ function compareDrawnNumbers(numbers) {
 }
 
 
-let drawnNumbers = [];
+const result = compareDrawnNumbers([11, 39, 12, 40, 7, 17]);
 
-let number = 0
+console.log(result);
+
+
+// let drawnNumbers = [];
+//
+// let number = 0
 
 
 
-do {
-  for (let i=0; i < 6; i++){
-    drawnNumber = drawNumber(possibleNumbers);
-    drawnNumbers.push(drawnNumber);
-  }
-  console.log(drawnNumbers);
-} while(!compareDrawnNumbers(drawnNumbers))
+// do {
+//   for (let i=0; i < 6; i++){
+//     drawnNumber = drawNumber(possibleNumbers);
+//     drawnNumbers.push(drawnNumber);
+//   }
+//   console.log(drawnNumbers);
+// } while(!compareDrawnNumbers(drawnNumbers))
