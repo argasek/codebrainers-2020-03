@@ -47,19 +47,12 @@ function compareDrawnNumbers(numbers) {
   return numberOfMatches === expectedNumbers.length;
 }
 
-
-
-
-
-
-
-let drawnNumbers = [];
+let drawnNumbers;
 
 let number = 0
 
-
-
 do {
+  drawnNumbers = [];
   for (let i=0; i < 6; i++){
     drawnNumber = drawNumber(possibleNumbers);
     drawnNumbers.push(drawnNumber);
