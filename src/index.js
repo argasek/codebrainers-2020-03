@@ -14,7 +14,7 @@ function getRandomInt(min, max) {
 
 function searchNumber(x) {
   for (let i=0; i < expectedNumbers.length; i++) {
-    if(x !== expectedNumbers[i]) {
+    if(x === expectedNumbers[i]) {
       return true;
     }
   }
@@ -23,7 +23,16 @@ function searchNumber(x) {
 
 let drawnNumber;
 
-do {
+let drawnNumbers = [];
+
+let number = 0
+
+for (let i=0; i < 6; i++){
   drawnNumber = getRandomInt(1, 49);
-  console.log(drawnNumber);
-} while(searchNumber(drawnNumber))
+  drawnNumbers.push(drawnNumber);
+}
+console.log(drawnNumbers);
+// do {
+//   drawnNumber = getRandomInt(1, 49);
+//   console.log(drawnNumber);
+// } while(searchNumber(drawnNumber))
