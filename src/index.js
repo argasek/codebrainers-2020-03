@@ -1,11 +1,13 @@
 const liczbaPytan = 5;
 
 function getRandomInteger() {
-    return 5;
+   const min = 1;
+   const max = 10;
+   return Math.floor(Math.random()*(max-min+1)+min);
 }
 
-let poprawneOdpowiedzi = 0;
 
+let poprawneOdpowiedzi = 0;
 for (let i = 0; i < liczbaPytan; i++) {
     let a = getRandomInteger();
     let b = getRandomInteger();
@@ -16,7 +18,30 @@ for (let i = 0; i < liczbaPytan; i++) {
         poprawneOdpowiedzi++;
     }
 }
-console.log('Liczba poprawnych odpowiedzi ' + poprawneOdpowiedzi);
+
+
+if (poprawneOdpowiedzi>=3){
+    alert(`Zdales test! Otrzymales ${poprawneOdpowiedzi} pkt!`);
+}else{
+    alert(`nie zdales testu otrzymales zaledwie ${poprawneOdpowiedzi} pkt`);
+}
+
+const szesc = 100;
+const piec = 90;
+const cztery = 80;
+const trzy = 70;
+if(poprawneOdpowiedzi*100/ liczbaPytan === szesc){
+    alert('Zdales test na 6!');
+} else if (poprawneOdpowiedzi * 100 / liczbaPytan >= piec && poprawneOdpowiedzi * 100 / liczbaPytan < szesc ) { 
+    alert('Zdales test na 5!');
+} else if (poprawneOdpowiedzi * 100 / liczbaPytan >= cztery && poprawneOdpowiedzi * 100 / liczbaPytan < piec ){
+    alert('Zdales test na 4!');
+} else if (poprawneOdpowiedzi * 100 / liczbaPytan >= trzy && poprawneOdpowiedzi * 100 / liczbaPytan < cztery ){
+    alert('Zdales na 3! ');
+}else{
+    alert('Zdales na dwa :((');
+}
+// console.log('Liczba poprawnych odpowiedzi ' + poprawneOdpowiedzi);
 
 /*
 Zadanie 1. Metodą kopiuj-wklej odnajdź w internetach algorytm
