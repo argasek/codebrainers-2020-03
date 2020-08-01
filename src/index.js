@@ -20,6 +20,25 @@ function searchNumber(x) {
   }
   return false;
 }
+//                  0  1  2  3  4  5  6  7  8  9
+// const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+// const numbers = [1, 2, 3, 4, 5, 6, 8, 9, 10];
+// const numbers = [1, 2, 3, 5, 6, 8, 9, 10];
+// const numbers = [1, 3, 5, 6, 8, 9, 10];
+// const numbers = [3, 5, 6, 8, 9, 10];
+// const numbers = [3, 6, 8, 9, 10];
+
+let possibleNumbers = [];
+for (let i =1; i < 49 + 1; i++) {
+    possibleNumbers.push(i);
+}
+
+function drawNumber(possibleNumbers) {
+    let index = getRandomInt(0, possibleNumbers.length - 1);
+    let x = possibleNumbers[index];
+    possibleNumbers.splice(index, 1);
+    return x;
+}
 
 let drawnNumber;
 
@@ -28,7 +47,7 @@ let drawnNumbers = [];
 let number = 0
 
 for (let i=0; i < 6; i++){
-  drawnNumber = getRandomInt(1, 49);
+  drawnNumber = drawNumber(possibleNumbers);
   drawnNumbers.push(drawnNumber);
 }
 console.log(drawnNumbers);
