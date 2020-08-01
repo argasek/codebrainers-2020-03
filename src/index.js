@@ -1,20 +1,18 @@
-const liczbaPytan = 5;
+const arr = [1, 5, 7, false, 'stringg', true, 545];
 
-function getRandomInteger(){
-    return 0;
+// const newArr = function(item, index, arra){
+
+
+//     console.log(item, index*-1, arra)
+// }
+
+// arr.map(newArr)
+
+const arr2 = [];
+
+for (let i = arr.length-1, j = 0; i>=0; i--, j++){
+    arr2[j] = arr[i];
+    console.log(arr[i]);
 }
 
-let poprawneOdp = 0;
-
-for (let i = 0; i < liczbaPytan; i++) {
-    let a = getRandomInteger();
-    let b = getRandomInteger();
-    prompt('Ile jest ' + a + ' * ' + b + '?');
-    let wynik = prompt('Ile jest ' + a + ' * ' + b + '?');
-    let ab = a * b;
-    if (wynik === ab) {
-        poprawneOdp++;
-    }
-     
-
-}
+console.log(arr2)
