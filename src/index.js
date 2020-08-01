@@ -3,19 +3,16 @@ const arr = ['dy', 'Hello', 'Roman', false, 'glowa', 'stringg', true, 'cyrlyca',
 // let newArr = arr.filter((item) => typeof item === "string" && );
 
 
-let z = 0
-function chceckForDoubleY(s) {
-    for(let i = 0; i<s.length; i++){
-        if (s[i]==='w'){
-            z++
-        }
-    }
-    if (z===2){
-        return s
-    }
+
+function checkForMultiple(s, letter, count) {
+    let a = s.split('');
+    let newArr = a.filter((item) => item === letter );
+
+    
+    return newArr.length>=count;
 }
 
-console.log(chceckForDoubleY('glowwa'))
+console.log(checkForMultiple('cyrlyca', 'c', 2));
 
 // console.log(newArr);
 
