@@ -1,38 +1,29 @@
-const arr = ['dy', 'Hello', 'Roman', false, 'glowa', 'stringg', true, 'cyrlyca',''];
+/*
+algorytm losuje tak długo 6 liczb dopóki nie wylosuje zadanego zestawu
+losujemy liczby z zakresu 1-49
+wylosowanie pierwszej liczby powoduje zawężenie zakresu 1-48 itd..
+*/
 
-// let newArr = arr.filter((item) => typeof item === "string" && );
+const expectedNumbers = [7, 11, 12, 17, 39, 40];
 
-
-
-function checkForMultiple(s, letter, count) {
-    let a = s.split('');
-    let newArr = a.filter((item) => item === letter );
-
-    
-    return newArr.length>=count;
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min;
 }
 
-console.log(checkForMultiple('cyrlyca', 'c', 2));
+function searchNumber(x) {
+  for (let i=0; i < expectedNumbers.length; i++) {
+    if(x !== expectedNumbers[i]) {
+      return true;
+    }
+  }
+  return false;
+}
 
-// console.log(newArr);
+let drawnNumber;
 
-// function mapper(item, index, a){
-//     return a[a.length - index - 1];
-// }
-// // const newArr = function(item, index, arra){
-
-
-// //     console.log(item, index*-1, arra)
-// // }
-
-// // arr.map(newArr)
-
-// const arr2 = arr.map(mapper);
-
-// //for (let i = arr.length-1, j = 0; i>=0; i--, j++){
-//  //  arr2[j] = arr[i];
-//    // console.log(arr[i]);
-// // }
-
-// console.log(arr2)
-
+do {
+  drawnNumber = getRandomInt(1, 49);
+  console.log(drawnNumber);
+} while(searchNumber(drawnNumber))
