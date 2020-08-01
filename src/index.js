@@ -1,9 +1,20 @@
-const arr = [1, 5, 7, false, 'stringg', true, 545];
+const arr = ['głowa', 'komputer', 'cyrylica', false, 'stringg', true, ''];
 
-let newArr = arr.map((item) => typeof item === "number" ? item : 0);
+let newArr = arr.filter((item) => typeof item === 'string' && item % 2 === 0);
 
 
-console.log(newArr);
+function checkForDoubleY(s, letter) {
+  for ( let i = 0; i < s.length; i++ ){
+  //  console.log(s[i]);
+    if (s[i] === letter) {
+        return true;
+    } 
+  } 
+  return false;
+}
+
+
+console.log(checkForDoubleY('komputer', 'y'));
 
 // function mapper(item, index, a){
 //     return a[a.length - index - 1];
