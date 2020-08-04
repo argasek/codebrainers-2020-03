@@ -1,41 +1,24 @@
-const expectedNumbers = [ 12, 11,  7, 17, 39, 40 ];
-const actualNumbers   = [ 11, 12, 17,  7, 40, 39 ];
+// Toto lotek homework version
 
-/**
- * @param {array} a
- * @param {array} b
- */
+function getRandomIntInclusive(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
-const comparator = (x, y) => {
-  if (x < y) {
-    return -1;
+const expectedNumbers = [8,10,21,26,30,49];
+
+let poolOfNumbers = [];
+
+function addNumbers() {
+  for(let i=1; i <=49; i++) {
+    poolOfNumbers.push(i);
   }
+  return poolOfNumbers;
+}
 
-  if (x > y) {
-    return 1;
-  }
+addNumbers();
+console.log(poolOfNumbers);
 
-  return 0;
-};
 
-/**
- *
- * @param {array} a
- * @param {array} b
- */
-const compareArrays = function(a, b) {
-  if (a.length !== b.length) {
-    return;
-  }
 
-  a.sort(comparator);
-  b.sort(comparator);
-
-  const result = a.map((item, index) => item === b[index])
-    .filter((item) => item === false);
-
-  return result.length === 0;
-};
-
-const result = compareArrays(expectedNumbers, actualNumbers);
-console.log(result);
