@@ -1,15 +1,14 @@
-const people = [
-  ['Janek', 18],
-  ['Basia', 35],
-  ['Mieczysław', 7],
-  ['Ola', 14],
+const timeTable = [
+  ['9:00-17:00'],
+  ['11:30-13:30', '14:00-16:00'],
+  ['8:00-16:00'],
+  ['11:00-23:50'],
+  ['03:00-23:10'],
+  ['06:00-11:00'],
 ];
 
-const peopleAges = people.map((item) => item[1]);
-const reducer = (accumulator, value, index, arr) => accumulator + value;
-const averageAge = peopleAges.reduce(reducer) / peopleAges.length;
+// 40h / tygodniowo?
 
-console.log(`Average age of people in array is ${averageAge}`);
 
 
 
