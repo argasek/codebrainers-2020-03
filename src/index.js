@@ -18,6 +18,17 @@ const convertTimeRangeToMinutes = timeRange => timeRange
   )
   .reduce((startTimestampAsMinutes, endTimestampAsMinutes) => endTimestampAsMinutes - startTimestampAsMinutes);
 
+
+const verifyIfTimeTableContainsNoMoreThan40h = (timeTable) => {
+  const result = false;
+  // …?
+  // convertTimeRangeToMinutes(…)
+  // convertTimeRangeToMinutes(…)
+
+  return result; // true, false;
+}
+
+
 console.log(timeTable[3][0]);
 console.log(convertTimeRangeToMinutes(timeTable[3][0]));
 
