@@ -6,12 +6,14 @@ function getRandomIntInclusive(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-const expectedNumbers = [8,10,21,26,30,49];
+const expectedNumbers = [8,21,10,26,30,49];
+const numberOfDraws = expectedNumbers.length;
+const numbersInThePool = 49;
 
 let poolOfNumbers = [];
 
 function addNumbers() {
-  for(let i=1; i<=49; i++) {
+  for(let i=1; i <= numbersInThePool; i++) {
     poolOfNumbers.push(i);
   }
   return poolOfNumbers;
@@ -20,10 +22,12 @@ function addNumbers() {
 addNumbers();
 // console.log(poolOfNumbers);
 
-function drawNumbers(pool, maxIndex) {
+function draw(pool) {
   let drawIndex;
   let drawNumber = [];
-  for(let i=0; i<=5; i++){
+  let maxIndex = numbersInThePool-1;
+
+  for(let i=0; i < numberOfDraws; i++){
     drawIndex = getRandomIntInclusive(0, maxIndex);
     // console.log(maxIndex, drawIndex, pool[drawIndex]);
     drawNumber.push(pool[drawIndex]);
@@ -32,7 +36,26 @@ function drawNumbers(pool, maxIndex) {
   }
   return drawNumber;
 }
+let drawNumbers = draw(poolOfNumbers);
 
-console.log(drawNumbers(poolOfNumbers, 48));
-// console.log([1,2,3].indexOf(2));
+console.log(drawNumbers, expectedNumbers);
+console.log(drawNumbers.sort(), expectedNumbers.sort());
+
+function compareArrays(arr1, arr2) {
+  let equality = true;
+  for(let i=0; i<numberOfDraws; i++) {
+    if (arr1[i] !== arr2[i])
+    equality = false;
+  }
+  return equality;
+}
+
+console.log(compareArrays(drawNumbers, expectedNumbers));
+
+
+
+
+
+
+
 
