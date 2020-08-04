@@ -12,12 +12,14 @@ const timeTable = [
 const convertTimeRangeToMinutes = timeRange => timeRange.split('-').map(hourWithMinutesAsString => {
   const hourWithMinutes = hourWithMinutesAsString.split(':').map(hourMinutePart => {
     return parseInt(hourMinutePart);
+  }).reduce((accumulator, currentValue) => {
+    return accumulator * 60 + currentValue;
   });
-  const hours = hourWithMinutes[0];
-  const minutes = hourWithMinutes[1];
-  const hoursAndMinutes = hours * 60 + minutes;
-  return hoursAndMinutes;
-});
+  return hourWithMinutes;
+}).reduce((accumulator, currentValue) => {
+  console.log(accumulator, currentValue);
+  return currentValue-accumulator;
+} );
 
 console.log(timeTable[3][0]);
 console.log(convertTimeRangeToMinutes(timeTable[3][0]));
