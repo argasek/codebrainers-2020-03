@@ -12,34 +12,32 @@ const numbersInThePool = 49;
 
 let poolOfNumbers = [];
 
-function addNumbers() {
+function createThePool() {
   for(let i=1; i <= numbersInThePool; i++) {
     poolOfNumbers.push(i);
   }
   return poolOfNumbers;
 }
 
-addNumbers();
-// console.log(poolOfNumbers);
+let drawNumber;
 
-function draw(pool) {
+function drawNumbers() {
   let drawIndex;
-  let drawNumber = [];
   let maxIndex = numbersInThePool-1;
+  drawNumber = [];
+
 
   for(let i=0; i < numberOfDraws; i++){
     drawIndex = getRandomIntInclusive(0, maxIndex);
     // console.log(maxIndex, drawIndex, pool[drawIndex]);
-    drawNumber.push(pool[drawIndex]);
-    pool.splice(drawIndex, 1);
+    drawNumber.push(poolOfNumbers[drawIndex]);
+    poolOfNumbers.splice(drawIndex, 1);
     maxIndex--;
   }
-  return drawNumber;
+  return drawNumber.sort;
 }
-let drawNumbers = draw(poolOfNumbers);
 
-console.log(drawNumbers, expectedNumbers);
-console.log(drawNumbers.sort(), expectedNumbers.sort());
+expectedNumbers.sort();
 
 function compareArrays(arr1, arr2) {
   let equality = true;
@@ -50,9 +48,17 @@ function compareArrays(arr1, arr2) {
   return equality;
 }
 
-console.log(compareArrays(drawNumbers, expectedNumbers));
+let compare;
+let repeats = 0;
 
+do{
+  createThePool();
+  drawNumbers();
+  compare = compareArrays(drawNumber, expectedNumbers);
+  repeats++;
+} while (compare === false && repeats < 10000000)
 
+console.log(repeats, drawNumber);
 
 
 
