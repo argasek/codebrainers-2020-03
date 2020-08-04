@@ -9,6 +9,10 @@ const timeTable = [
 
 // 40h / tygodniowo?
 
+const convertTimeRangeToMinutes = timeRange => timeRange.split('-').map(hourWithMinutes => hourWithMinutes);
+
+console.log(convertTimeRangeToMinutes(timeTable[3][0]));
+
 
 
 
