@@ -9,8 +9,17 @@ const timeTable = [
 
 // 40h / tygodniowo?
 
-const convertTimeRangeToMinutes = timeRange => timeRange.split('-').map(hourWithMinutes => hourWithMinutes);
+const convertTimeRangeToMinutes = timeRange => timeRange.split('-').map(hourWithMinutesAsString => {
+  const hourWithMinutes = hourWithMinutesAsString.split(':').map(hourMinutePart => {
+    return parseInt(hourMinutePart);
+  });
+  const hours = hourWithMinutes[0];
+  const minutes = hourWithMinutes[1];
+  const hoursAndMinutes = hours * 60 + minutes;
+  return hoursAndMinutes;
+});
 
+console.log(timeTable[3][0]);
 console.log(convertTimeRangeToMinutes(timeTable[3][0]));
 
 
