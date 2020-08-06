@@ -27,7 +27,8 @@ const verifyIfTimeTableContainsNoMoreThan40h = () => {
   }
 }
 
-  const allMinutes = allMinutesPerDayArray.reduce((o,b) => o+b);
+  const allMinutes = allMinutesPerDayArray
+  .reduce((previousMinuteElement, currentMinuteElemnt) => previousMinuteElement + currentMinuteElemnt);
   const allHours = Math.round(allMinutes/60)
 
   return allHours>40? `Your working time is too long, it is ${allHours} hours!`:
