@@ -19,18 +19,26 @@ const convertTimeRangeToMinutes = timeRange => timeRange
   .reduce((startTimestampAsMinutes, endTimestampAsMinutes) => endTimestampAsMinutes - startTimestampAsMinutes);
 
 
-const verifyIfTimeTableContainsNoMoreThan40h = (timeTable) => {
-  const result = false;
-  // …?
-  // convertTimeRangeToMinutes(…)
-  // convertTimeRangeToMinutes(…)
+const verifyIfTimeTableContainsNoMoreThan40h = () => {
+  let allMinutesPerDayArray=[]
+  for(i = 0; i<timeTable.length; i++){
+  for(j = 0; j<timeTable[i].length; j++){
+    allMinutesPerDayArray.push(convertTimeRangeToMinutes(timeTable[i][j]))
+  }
+}
 
-  return result; // true, false;
+  const allMinutes = allMinutesPerDayArray.reduce((o,b) => o+b);
+  const allHours = Math.round(allMinutes/60)
+
+  return allHours>40? `Your working time is too long, it is ${allHours} hours!`:
+   `Your working time is fine, it is ${allHours} hours`;
 }
 
 
-console.log(timeTable[3][0]);
-console.log(convertTimeRangeToMinutes(timeTable[3][0]));
+console.log(verifyIfTimeTableContainsNoMoreThan40h())
+
+// console.log(timeTable[0][1]);
+// console.log(convertTimeRangeToMinutes(timeTable[0][1]));
 
 
 
