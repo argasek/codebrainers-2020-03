@@ -1,66 +1,27 @@
-let someField = 'aaa';
-
-class Car {
-  numberOfWheels = 4;
-  numberOfDoors = 3;
+class Student {
+  fullName = '';
+  beers = 0;
+  frequency = 0;
 }
 
-class CombiCar extends Car {
-  numberOfDoors = 5;
-}
-
-const genericCar = new Car();
-const combiCar = new CombiCar();
-
-console.log(genericCar.numberOfDoors, genericCar.numberOfWheels);
-console.log(combiCar.numberOfDoors, combiCar.numberOfWheels);
-
-// person.name = 'Jakub';
-// person.surname = 'Argasiński';
-//
-// person.name = undefined;
-// console.log(Object.keys(person));
-//
-// delete person.name;
-//
-// console.log(Object.keys(person));
+const smartStudent = new Student();
+const lazyStudent = new Student();
+let anotherSmartStudent = smartStudent;
 
 
-//
-// const person = {
-//   name: 'Janina',
-//   surname: 'Kowalska',
-//   getFullName() {
-//     return this.name + ' ' + this.surname;
-//   },
-//   setFullName(fullName) {
-//     if (typeof fullName !== 'string' || fullName === '') {
-//       return;
-//     }
-//     const splitName = fullName.split(' ');
-//     this._setNameAndSurname(splitName[0], splitName[1])
-//   },
-//   _setNameAndSurname(name, surname) {
-//     this.name = name;
-//     this.surname = surname;
-//   }
-// };
-//
-// const person2 = {
-//   name: 'Jan',
-//   surname: 'Kowalski',
-//   getFullName() {
-//     return this.name + ' ' + this.surname;
-//   },
-//   setFullName(fullName) {
-//     if (typeof fullName !== 'string' || fullName === '') {
-//       return;
-//     }
-//     const splitName = fullName.split(' ');
-//     this._setNameAndSurname(splitName[0], splitName[1])
-//   },
-// }
-//
-// console.log(person.getFullName());
-// person.setFullName('Jan Kowalski');
-// console.log(person.getFullName());
+smartStudent.beers = 3;
+smartStudent.fullName = 'Smart Student';
+lazyStudent.fullName = 'Lazy Student';
+
+console.log(smartStudent, anotherSmartStudent);
+
+anotherSmartStudent.beers = 5;
+
+console.log(smartStudent, anotherSmartStudent);
+
+let a = "string";
+let b = a;
+
+b = 'ciasto';
+
+console.log(a, b);
