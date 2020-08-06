@@ -19,10 +19,17 @@ class Student {
 const codebrainersStudents = [
   new Student('Adam'),
   new Student('Anna', 2),
-  new Student('Kamil')
+  new Student('Kamil'),
+  new Student('Szymon'),
+  new Student('Marharyta')
 ];
 
-codebrainersStudents.forEach(student => student.frequency = student.getRandomInt(5-1)+1)
+codebrainersStudents.forEach(student => student.frequency = student.getRandomInt(10-1)+1);
 
-console.log(codebrainersStudents);
+const studentsFrequencies = codebrainersStudents
+    .sort((a, b) => a.frequency - b.frequency)
+    .filter((item, index, arr) => index === arr.length - 1)
+    .reduce((accumulator, value) => value.fullName, null);
+
+console.log(studentsFrequencies);
 
