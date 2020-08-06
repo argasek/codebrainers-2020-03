@@ -1,41 +1,66 @@
-const timeTable = [
-  [ '9:00-17:00', '07:15-07:20' ], // 8h 5m
-  [ '11:30-13:30', '14:00-16:00' ], // 2 + 2
-  [ '8:00-16:00' ], // 8
-  [ '11:00-23:50' ], // 12h: 50
-  [ '03:00-23:10' ], // 20 h : 10
-  [ '06:00-11:00' ], // 5
-];
+let someField = 'aaa';
 
-// 40h / tygodniowo?
-
-const convertTimeRangeToMinutes = timeRange => timeRange
-  .split('-')
-  .map(hourWithMinutesAsString => hourWithMinutesAsString
-    .split(':')
-    .map(hourMinutePart => +hourMinutePart)
-    .reduce((hours, minutes) => hours * 60 + minutes)
-  )
-  .reduce((startTimestampAsMinutes, endTimestampAsMinutes) => endTimestampAsMinutes - startTimestampAsMinutes);
-
-
-const verifyIfTimeTableContainsNoMoreThan40h = (timeTable) => {
-  const result = false;
-  // …?
-  // convertTimeRangeToMinutes(…)
-  // convertTimeRangeToMinutes(…)
-
-  return result; // true, false;
+class Car {
+  numberOfWheels = 4;
+  numberOfDoors = 3;
 }
 
+class CombiCar extends Car {
+  numberOfDoors = 5;
+}
 
-console.log(timeTable[3][0]);
-console.log(convertTimeRangeToMinutes(timeTable[3][0]));
+const genericCar = new Car();
+const combiCar = new CombiCar();
+
+console.log(genericCar.numberOfDoors, genericCar.numberOfWheels);
+console.log(combiCar.numberOfDoors, combiCar.numberOfWheels);
+
+// person.name = 'Jakub';
+// person.surname = 'Argasiński';
+//
+// person.name = undefined;
+// console.log(Object.keys(person));
+//
+// delete person.name;
+//
+// console.log(Object.keys(person));
 
 
-
-
-
-
-
-
+//
+// const person = {
+//   name: 'Janina',
+//   surname: 'Kowalska',
+//   getFullName() {
+//     return this.name + ' ' + this.surname;
+//   },
+//   setFullName(fullName) {
+//     if (typeof fullName !== 'string' || fullName === '') {
+//       return;
+//     }
+//     const splitName = fullName.split(' ');
+//     this._setNameAndSurname(splitName[0], splitName[1])
+//   },
+//   _setNameAndSurname(name, surname) {
+//     this.name = name;
+//     this.surname = surname;
+//   }
+// };
+//
+// const person2 = {
+//   name: 'Jan',
+//   surname: 'Kowalski',
+//   getFullName() {
+//     return this.name + ' ' + this.surname;
+//   },
+//   setFullName(fullName) {
+//     if (typeof fullName !== 'string' || fullName === '') {
+//       return;
+//     }
+//     const splitName = fullName.split(' ');
+//     this._setNameAndSurname(splitName[0], splitName[1])
+//   },
+// }
+//
+// console.log(person.getFullName());
+// person.setFullName('Jan Kowalski');
+// console.log(person.getFullName());
