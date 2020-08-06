@@ -1,27 +1,22 @@
-class Student {
-  fullName = '';
-  beers = 0;
-  frequency = 0;
-}
+
+
 
 const smartStudent = new Student();
-const lazyStudent = new Student();
-let anotherSmartStudent = smartStudent;
-
-
 smartStudent.beers = 3;
 smartStudent.fullName = 'Smart Student';
+
+const lazyStudent = new Student();
 lazyStudent.fullName = 'Lazy Student';
 
-console.log(smartStudent, anotherSmartStudent);
+// let anotherSmartStudent = smartStudent.clone();
+// let yetAnotherSmartStudent = smartStudent.clone();
 
-anotherSmartStudent.beers = 5;
 
-console.log(smartStudent, anotherSmartStudent);
+// console.log(smartStudent, anotherSmartStudent);
 
-let a = "string";
-let b = a;
+const anotherSmartStudent = Object.assign(new Student(), smartStudent);
+// anotherSmartStudent.beers = 5;
 
-b = 'ciasto';
+console.log(anotherSmartStudent instanceof Student);
 
-console.log(a, b);
+// console.log();
