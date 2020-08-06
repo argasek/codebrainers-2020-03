@@ -5,6 +5,10 @@ class Student {
     this.frequency = 0;
   }
 
+  getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+  }
+
   clone() {
     const student = new Student();
     Object.keys(this).forEach(key => student[key] = this[key]);
@@ -18,4 +22,7 @@ const codebrainersStudents = [
   new Student('Kamil')
 ];
 
+codebrainersStudents.forEach(student => student.frequency = student.getRandomInt(5-1)+1)
+
 console.log(codebrainersStudents);
+
