@@ -2,8 +2,8 @@ import React from 'react';
 import './App.css';
 import { codebrainersStudents, Students } from './models/Students';
 
-function GetRows(students) {
-  const arr = students.items.map(function (student, index) {
+function getRows(students) {
+  const arr = students.map(function (student, index) {
     return <tr key={index}>
 
       <td>{student.fullName}</td>
@@ -17,43 +17,37 @@ function GetRows(students) {
   return arr;
 }
 
+function StudentsTable({ students }) {
+  const rows = getRows(students);
+  return (
+    <table>
+      <thead>
+      <tr>
+        <th>Full Name</th>
+        <th>Beers</th>
+        <th>Frequency</th>
+      </tr>
+      </thead>
+      <tbody>
+        { rows }
+      </tbody>
+    </table>
+  )
+}
+
 function App() {
   const students = new Students();
+
   students.setStudents(codebrainersStudents);
   students.sortByFrequencyAsc();
 
   console.log(codebrainersStudents);
 
   return (
-
     <React.Fragment>
-      <table>
-        <thead>
-          <tr>
-            <th>Full Name</th>
-            <th>Beers</th>
-            <th>Frequency</th>
-          </tr>
-        </thead>
-        <tbody>
-          {GetRows(students.items)}
-        </tbody>
-      </table>
-      <table>
-        <thead>
-          <tr>
-            <th>Full Name</th>
-            <th>Beers</th>
-            <th>Frequency</th>
-          </tr>
-        </thead>
-        <tbody>
-          {GetRows(codebrainersStudents)}
-        </tbody>
-      </table>
+      <StudentsTable students={students.items} />
+      <StudentsTable students={codebrainersStudents} />
     </React.Fragment>
-
-
   );
 
 }
