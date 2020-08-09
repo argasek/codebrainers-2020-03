@@ -19,7 +19,7 @@ class Students {
   }
 
   sortByFrequencyAsc (){
-    this.items.sort((a,b) => a-b);
+    this.items.sort((a,b) => a.frequency-b.frequency);
   }
 
   setStudents (students){
