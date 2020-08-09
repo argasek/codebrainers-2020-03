@@ -1,66 +1,13 @@
-let someField = 'aaa';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import * as serviceWorker from './serviceWorker';
 
-class Car {
-  numberOfWheels = 4;
-  numberOfDoors = 3;
-}
+ReactDOM.render(<App />, document.getElementById('root'));
 
-class CombiCar extends Car {
-  numberOfDoors = 5;
-}
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+serviceWorker.unregister();
 
-const genericCar = new Car();
-const combiCar = new CombiCar();
-
-console.log(genericCar.numberOfDoors, genericCar.numberOfWheels);
-console.log(combiCar.numberOfDoors, combiCar.numberOfWheels);
-
-// person.name = 'Jakub';
-// person.surname = 'Argasiński';
-//
-// person.name = undefined;
-// console.log(Object.keys(person));
-//
-// delete person.name;
-//
-// console.log(Object.keys(person));
-
-
-//
-// const person = {
-//   name: 'Janina',
-//   surname: 'Kowalska',
-//   getFullName() {
-//     return this.name + ' ' + this.surname;
-//   },
-//   setFullName(fullName) {
-//     if (typeof fullName !== 'string' || fullName === '') {
-//       return;
-//     }
-//     const splitName = fullName.split(' ');
-//     this._setNameAndSurname(splitName[0], splitName[1])
-//   },
-//   _setNameAndSurname(name, surname) {
-//     this.name = name;
-//     this.surname = surname;
-//   }
-// };
-//
-// const person2 = {
-//   name: 'Jan',
-//   surname: 'Kowalski',
-//   getFullName() {
-//     return this.name + ' ' + this.surname;
-//   },
-//   setFullName(fullName) {
-//     if (typeof fullName !== 'string' || fullName === '') {
-//       return;
-//     }
-//     const splitName = fullName.split(' ');
-//     this._setNameAndSurname(splitName[0], splitName[1])
-//   },
-// }
-//
-// console.log(person.getFullName());
-// person.setFullName('Jan Kowalski');
-// console.log(person.getFullName());
