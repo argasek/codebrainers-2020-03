@@ -15,3 +15,5 @@ class Student {
     return student;
   }
 }
+
+export default Student;

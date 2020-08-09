@@ -1,3 +1,5 @@
+import Student from './Student';
+
 const codebrainersStudents = [
   new Student('Adam'),
   new Student('Anna', 2),
@@ -5,3 +7,5 @@ const codebrainersStudents = [
   new Student('Szymon'),
   new Student('Marharyta')
 ];
+
+export default codebrainersStudents;
