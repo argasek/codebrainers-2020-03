@@ -1,12 +1,20 @@
 import Student from './Student';
 
+const student = new Student('Kamil');
+
 const codebrainersStudents = [
   new Student('Adam', 1),
+  student,
   new Student('Anna', 2),
-  new Student('Kamil'),
-  new Student('Szymon'),
   new Student('Marharyta')
 ];
+
+const someOtherBootcampStudents = [
+  new Student('Szymon'),
+  student,
+  new Student('Marharyta')
+];
+
 
 class Students {
 
