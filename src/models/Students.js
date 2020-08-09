@@ -29,4 +29,5 @@ class Students {
 }
 
 
-export default codebrainersStudents;
+export {codebrainersStudents, Students};
+

@@ -1,9 +1,12 @@
 import React from 'react';
 import './App.css';
-import codebrainersStudents from './models/Students';
+import {codebrainersStudents, Students} from './models/Students';
 
 function App() {
-  const arr = codebrainersStudents.map(function (student, index) {
+  const students = new Students();
+  students.setStudents(codebrainersStudents);
+  students.sortByFrequencyAsc();
+  const arr = students.items.map(function (student, index) {
     return <tr key={index}>
       
       <td>{student.fullName}</td>
