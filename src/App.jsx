@@ -4,18 +4,32 @@ import codebrainersStudents from './models/Students';
 
 function App() {
   const arr = codebrainersStudents.map(function (student, index) {
-    return <li key={index}>
-      {student.fullName}
+    return <tr key={index}>
+      
+      <td>{student.fullName}</td>
       {' '}
-      {student.beers}
+      <td>{student.beers}</td>
       {' '}
-      {student.frequency}
-    </li>;
+      <td>{student.frequency}</td>
+    </tr>
+    ;
   });
   console.log(codebrainersStudents);
-  return <ul>
-    {arr}
-  </ul>;
+  
+  return (
+    <table>
+      <thead>
+        <tr>
+          <th>Full Name</th>
+          <th>Beers</th>
+          <th>Frequency</th>
+        </tr>
+      </thead>
+      <tbody>
+      {arr}
+      </tbody>
+    </table>
+  );
 
 }
 

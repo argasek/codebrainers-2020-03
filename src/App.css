@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+
+table td{
+  border: 1px solid grey;
+}
+
+table th{
+  background-color: grey;
+}
