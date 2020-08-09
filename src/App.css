@@ -44,3 +44,7 @@ table td{
 table th{
   background-color: grey;
 }
+
+table {
+  border-collapse: collapse;
+}

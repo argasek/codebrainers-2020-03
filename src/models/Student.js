@@ -2,7 +2,7 @@ class Student {
   constructor(fullName, beers = 0) {
     this.fullName = fullName;
     this.beers = beers;
-    this.frequency = 0;
+    this.frequency = this.getRandomInt(8);
   }
 
   getRandomInt(max) {
@@ -15,5 +15,7 @@ class Student {
     return student;
   }
 }
+
+
 
 export default Student;
