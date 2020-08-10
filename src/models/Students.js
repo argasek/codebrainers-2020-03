@@ -15,27 +15,43 @@ const someOtherBootcampStudents = [
   new Student('Marharyta')
 ];
 
+const studentsOfTwoCourses = []
 
 class Students {
 
-  constructor() {
-    this.items = []; 
+  constructor () {
+    this.items = [];
   }
 
-  addStudent(student){
+  addStudent(student) {
     this.items.push(student);
   }
 
-  sortByFrequencyAsc (){
-    this.items.sort((a,b) => a.frequency-b.frequency);
+  sortByFrequencyAsc() {
+    this.items.sort((a, b) => a.frequency - b.frequency);
   }
 
-  setStudents (students){
-    this.items= students.map(student => student.clone() );
+  sortByFrequencyDesc() {
+    this.items.sort((a, b) => b.frequency - a.frequency);
   }
+
+  setStudents(students) {
+    this.items = students.map(student => student.clone());
+  }
+
+  compareStudents(firstGroup, secondGroup) {
+    this.items = firstGroup.map(firstElGroup => secondGroup.map(secondElGroup => {
+      if (firstElGroup === secondElGroup) {
+        studentsOfTwoCourses.push(firstElGroup)
+      }
+    }
+    ))
+    return this.items;
+  }
+
 
 }
 
 
-export {codebrainersStudents, Students};
+export { codebrainersStudents, Students, someOtherBootcampStudents, studentsOfTwoCourses };
 

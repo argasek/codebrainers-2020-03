@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { codebrainersStudents, Students } from './models/Students';
+import { codebrainersStudents, Students, someOtherBootcampStudents, studentsOfTwoCourses } from './models/Students';
 
 function getRows(students) {
   const arr = students.map(function (student, index) {
@@ -22,14 +22,14 @@ function StudentsTable({ students }) {
   return (
     <table>
       <thead>
-      <tr>
-        <th>Full Name</th>
-        <th>Beers</th>
-        <th>Frequency</th>
-      </tr>
+        <tr>
+          <th>Full Name</th>
+          <th>Beers</th>
+          <th>Frequency</th>
+        </tr>
       </thead>
       <tbody>
-        { rows }
+        {rows}
       </tbody>
     </table>
   )
@@ -40,13 +40,18 @@ function App() {
 
   students.setStudents(codebrainersStudents);
   students.sortByFrequencyAsc();
+  students.compareStudents(someOtherBootcampStudents, codebrainersStudents)
+
+
 
   console.log(codebrainersStudents);
 
   return (
     <React.Fragment>
-      <StudentsTable students={students.items} />
+      <StudentsTable students={someOtherBootcampStudents} />
       <StudentsTable students={codebrainersStudents} />
+      <StudentsTable students={studentsOfTwoCourses} />
+
     </React.Fragment>
   );
 
