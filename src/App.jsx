@@ -39,17 +39,20 @@ function App() {
   const students = new Students();
 
   students.setStudents(codebrainersStudents);
+
   students.sortByFrequencyAsc();
-  students.compareStudents(someOtherBootcampStudents, codebrainersStudents)
+  students.sortByFrequencyDesc(someOtherBootcampStudents);
+  students.sortByBeersThenNames(students.compareStudents(someOtherBootcampStudents, codebrainersStudents));
 
 
 
   console.log(codebrainersStudents);
+  console.log(someOtherBootcampStudents);
 
   return (
     <React.Fragment>
+      <StudentsTable students={students.items} />
       <StudentsTable students={someOtherBootcampStudents} />
-      <StudentsTable students={codebrainersStudents} />
       <StudentsTable students={studentsOfTwoCourses} />
 
     </React.Fragment>
