@@ -58,9 +58,12 @@ class App extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      students: codebrainersStudents
+      students: codebrainersStudents,
+      inputValue: '',
     };
   }
+
+
 
   onButtonClick = () => {
 
@@ -72,6 +75,12 @@ class App extends React.Component {
     this.setState({ students: studentsKubus });
   }
 
+  onChange = (event) => {
+    
+    console.log(event.target.value);
+    this.setState ({inputValue: event.target.value});
+  }
+
   render() {
 
     const backgroundColor = '#ccc';
@@ -80,6 +89,8 @@ class App extends React.Component {
       <React.Fragment>
         <StudentsTable students={this.state.students} />
         <div style={{ backgroundColor, padding: '1em' }}>
+          <label htmlFor='FullName'>Name and surname:</label>
+          <input value={this.state.inputValue} id='FullName' type='text' onChange={this.onChange}/>
           <button style={{ fontSize: '120%' }} onClick={this.onButtonClick}>
             Sort students, please
           </button>
