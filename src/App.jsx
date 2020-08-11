@@ -71,7 +71,7 @@ function App() {
   let studentsTableItems = codebrainersStudents;
 
   function onButtonClick() {
-    alert('Button clicked!');
+    studentsTableItems = students.items;
   }
 
 
