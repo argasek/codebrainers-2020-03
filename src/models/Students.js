@@ -12,12 +12,6 @@ const codebrainersStudents = [
   new Student('Fejkowy student Ż', 2),
 ];
 
-const someOtherBootcampStudents = [
-  new Student('Szymon'),
-  student,
-  new Student('Marharyta')
-];
-
 
 class Students {
 

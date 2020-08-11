@@ -1,18 +1,14 @@
 import React from 'react';
 import './App.css';
-import { codebrainersStudents, Students } from './models/Students';
+import {codebrainersStudents, Students} from './models/Students';
 
 function getRows(students) {
   const arr = students.map(function (student, index) {
     return <tr key={index}>
-
       <td>{student.fullName}</td>
-      {' '}
       <td>{student.beers}</td>
-      {' '}
       <td>{student.frequency}</td>
-    </tr>
-      ;
+    </tr>;
   });
   return arr;
 }
@@ -20,7 +16,7 @@ function getRows(students) {
 class StudentsTable extends React.Component {
 
   render() {
-    const { students } = this.props;
+    const {students} = this.props;
     const rows = getRows(students);
     return (
       <table>
@@ -32,7 +28,7 @@ class StudentsTable extends React.Component {
         </tr>
         </thead>
         <tbody>
-          { rows }
+        {rows}
         </tbody>
       </table>
     )
@@ -57,36 +53,38 @@ class StudentsTable extends React.Component {
 //   )
 // }
 
-function App() {
-  const students = new Students();
-
-  students.setStudents(codebrainersStudents);
-  students.sortByFrequencyAsc();
-
-  console.log(codebrainersStudents);
-
-  const backgroundColor = '#ccc';
-
-  // -> students.items
-  let studentsTableItems = codebrainersStudents;
-
-  function onButtonClick() {
-    studentsTableItems = students.items;
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      students: codebrainersStudents
+    };
   }
 
+  onButtonClick = () => {
+    const students = new Students();
 
+    students.setStudents(codebrainersStudents);
+    students.sortByFrequencyAsc();
 
-  return (
-    <React.Fragment>
-      <StudentsTable students={studentsTableItems} />
-      <div style={ { backgroundColor, padding: '1em' }}>
-        <button style={ { fontSize: '120%' }} onClick={onButtonClick}>
-          Sort students, please
-        </button>
-      </div>
-    </React.Fragment>
-  );
+    this.setState({students: students.items});
+  }
 
+  render() {
+
+    const backgroundColor = '#ccc';
+
+    return (
+      <React.Fragment>
+        <StudentsTable students={this.state.students}/>
+        <div style={{backgroundColor, padding: '1em'}}>
+          <button style={{fontSize: '120%'}} onClick={this.onButtonClick}>
+            Sort students, please
+          </button>
+        </div>
+      </React.Fragment>
+    );
+  }
 }
 
 export default App;
