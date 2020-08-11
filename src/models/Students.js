@@ -68,7 +68,7 @@ class Students {
   sortByBeersThenNames(group) {
     group.sort((a, b) => {
 
-      return (b.beers - a.beers) !== 1 ? (b.beers - a.beers) : (a.fullName > b.fullName)
+      return (b.beers - a.beers) !== 1 ? (b.beers - a.beers) : (b.fullName > a.fullName)
     });
   }
 
