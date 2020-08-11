@@ -37,5 +37,5 @@ class Students {
 }
 
 
-export {codebrainersStudents, Students};
+export {student, codebrainersStudents, someOtherBootcampStudents, Students};
 
