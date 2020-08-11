@@ -6,7 +6,10 @@ const codebrainersStudents = [
   new Student('Adam', 1),
   student,
   new Student('Anna', 2),
-  new Student('Marharyta')
+  new Student('Marharyta'),
+  new Student('Fejkowy student A', 13),
+  new Student('Fejkowy student H', 6),
+  new Student('Fejkowy student Ż', 2),
 ];
 
 const someOtherBootcampStudents = [

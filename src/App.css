@@ -37,11 +37,16 @@
   }
 }
 
-table td{
+table td {
   border: 1px solid grey;
+  padding: 1em;
 }
 
-table th{
+table {
+  margin: 1em;
+}
+
+table th {
   background-color: grey;
 }
 

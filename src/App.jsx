@@ -17,23 +17,45 @@ function getRows(students) {
   return arr;
 }
 
-function StudentsTable({ students }) {
-  const rows = getRows(students);
-  return (
-    <table>
-      <thead>
-      <tr>
-        <th>Full Name</th>
-        <th>Beers</th>
-        <th>Frequency</th>
-      </tr>
-      </thead>
-      <tbody>
-        { rows }
-      </tbody>
-    </table>
-  )
+class StudentsTable extends React.Component {
+
+  render() {
+    const { students } = this.props;
+    const rows = getRows(students);
+    return (
+      <table>
+        <thead>
+        <tr>
+          <th>Full Name</th>
+          <th>Beers</th>
+          <th>Frequency</th>
+        </tr>
+        </thead>
+        <tbody>
+          { rows }
+        </tbody>
+      </table>
+    )
+  }
 }
+
+// function StudentsTable({ students }) {
+//   const rows = getRows(students);
+//   return (
+//     <table>
+//       <thead>
+//       <tr>
+//         <th>Full Name</th>
+//         <th>Beers</th>
+//         <th>Frequency</th>
+//       </tr>
+//       </thead>
+//       <tbody>
+//         { rows }
+//       </tbody>
+//     </table>
+//   )
+// }
 
 function App() {
   const students = new Students();
@@ -43,10 +65,25 @@ function App() {
 
   console.log(codebrainersStudents);
 
+  const backgroundColor = '#ccc';
+
+  // -> students.items
+  let studentsTableItems = codebrainersStudents;
+
+  function onButtonClick() {
+    alert('Button clicked!');
+  }
+
+
+
   return (
     <React.Fragment>
-      <StudentsTable students={students.items} />
-      <StudentsTable students={codebrainersStudents} />
+      <StudentsTable students={studentsTableItems} />
+      <div style={ { backgroundColor, padding: '1em' }}>
+        <button style={ { fontSize: '120%' }} onClick={onButtonClick}>
+          Sort students, please
+        </button>
+      </div>
     </React.Fragment>
   );
 
