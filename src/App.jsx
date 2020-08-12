@@ -13,6 +13,11 @@ function getRows(students) {
   });
   return arr;
 }
+function notDivideByZero(signInput, zeroInput){
+  if((signInput === '/') && (parseInt(zeroInput) === 0)){
+    return alert('Nie dziel przez zero Ty... brzydki człowieku.');
+  }
+}
 
 class StudentsTable extends React.Component {
 
@@ -76,23 +81,16 @@ class App extends React.Component {
     this.setState({students: studentsKubus});
   }
 
-  // changeFirst = (event) => {
-  //   console.log(event.target.value);
-  //   this.setState({firstValue: event.target.value});
-  // }
-  // changeSign = (event) => {
-  //   console.log(event.target.value);
-  //   this.setState({inputSign: event.target.value});
-  // }
-  // changeSecond = (event) => {
-  //   console.log(event.target.value);
-  //   this.setState({secondValue: event.target.value});
-  // }
-
-  onChange = (event) => {
-    
-    console.log(event.target.value);
-    this.setState ({inputValue: event.target.value});
+  changeFirst = (event) => {
+    this.setState({firstValue: event.target.value});
+  }
+  changeSign = (event) => {
+    notDivideByZero(event.target.value, this.state.secondValue);
+    this.setState({inputSign: event.target.value});
+  }
+  changeSecond = (event) => {
+    notDivideByZero(this.state.inputSign, event.target.value);
+    this.setState({secondValue: event.target.value});
   }
 
 
@@ -105,11 +103,11 @@ class App extends React.Component {
         <StudentsTable students={this.state.students}/>
         <div style={{backgroundColor, padding: '1em'}}>
           <label htmlFor='FirstNumber'>First number:</label>
-          <input value={this.state.inputValue} id='FirstNumber' type='number' onChange={this.onChange}/>
+          <input value={this.state.inputValue} id='FirstNumber' type='text' onChange={this.changeFirst}/>
           <label htmlFor='Operation'>Operation:</label>
-          <input value={this.state.inputValue} id='Operation' type='text' onChange={this.onChange}/>
+          <input value={this.state.inputValue} id='Operation' type='text' onChange={this.changeSign}/>
           <label htmlFor='SecondNumber'>Second number:</label>
-          <input value={this.state.inputValue} id='SecondNumber' type='number' onChange={this.onChange}/>
+          <input value={this.state.inputValue} id='SecondNumber' type='text' onChange={this.changeSecond}/>
           <button style={{fontSize: '120%'}} onClick={this.onButtonClick}>
             Calculate
           </button>
