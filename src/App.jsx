@@ -30,11 +30,11 @@ function notDivideByZero(signInput, zeroInput) {
 function doMathOperation(firstValue, operationSign, secondValue) {
   const a = parseFloat(firstValue);
   const b = parseFloat(secondValue);
-  return operationSign === '' || firstValue === '' || secondValue === ''? alert('Wypełnij wszystkie pola!'):
-  operationSign === '+' ? console.log(a + b) :
-    operationSign === '-' ? console.log(a - b) :
-      operationSign === '*' ? console.log(a * b) :
-        console.log(a / b);
+  return operationSign === '' || firstValue === '' || secondValue === '' ? alert('Wypełnij wszystkie pola!') :
+    operationSign === '+' ? a + b :
+      operationSign === '-' ? a - b :
+        operationSign === '*' ? a * b :
+          a / b;
 }
 
 
@@ -45,13 +45,14 @@ class App extends React.Component {
       firstValue: '',
       inputSign: '',
       secondValue: '',
+      result: '',
     };
   }
 
 
   onButtonClick = () => {
-    console.log('Calculate');
-    doMathOperation(this.state.firstValue,this.state.inputSign, this.state.secondValue);
+    // doMathOperation(this.state.firstValue, this.state.inputSign, this.state.secondValue);
+    this.setState({result: doMathOperation(this.state.firstValue, this.state.inputSign, this.state.secondValue)});
   }
 
   changeFirst = (event) => {
@@ -86,6 +87,7 @@ class App extends React.Component {
           <button style={{fontSize: '120%'}} onClick={this.onButtonClick}>
             Calculate
           </button>
+          <span>Wynik działania to: {this.state.result}</span>
         </div>
       </React.Fragment>
     );
