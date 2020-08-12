@@ -1,69 +1,17 @@
 import React from 'react';
 import './App.css';
-import {codebrainersStudents} from './models/Students';
-import Student from './models/Student';
 
-function getRows(students) {
-  const arr = students.map(function (student, index) {
-    return <tr key={index}>
-      <td>{student.fullName}</td>
-      <td>{student.beers}</td>
-      <td>{student.frequency}</td>
-    </tr>;
-  });
-  return arr;
-}
 function notDivideByZero(signInput, zeroInput){
   if((signInput === '/') && (parseInt(zeroInput) === 0)){
     return alert('Nie dziel przez zero Ty... brzydki człowieku.');
   }
 }
 
-class StudentsTable extends React.Component {
-
-  render() {
-    const {students} = this.props;
-    const rows = getRows(students);
-    return (
-      <table>
-        <thead>
-        <tr>
-          <th>Full Name</th>
-          <th>Beers</th>
-          <th>Frequency</th>
-        </tr>
-        </thead>
-        <tbody>
-        {rows}
-        </tbody>
-      </table>
-    )
-  }
-}
-
-// function StudentsTable({ students }) {
-//   const rows = getRows(students);
-//   return (
-//     <table>
-//       <thead>
-//       <tr>
-//         <th>Full Name</th>
-//         <th>Beers</th>
-//         <th>Frequency</th>
-//       </tr>
-//       </thead>
-//       <tbody>
-//         { rows }
-//       </tbody>
-//     </table>
-//   )
-// }
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      students: codebrainersStudents,
       firstValue: '',
       inputSign: '',
       secondValue: '',
@@ -72,13 +20,7 @@ class App extends React.Component {
 
 
   onButtonClick = () => {
-
-    const student = new Student();
-
-    console.log(this.state.students);
-    const studentsKubus = [...this.state.students];
-    studentsKubus[student.getRandomInt(studentsKubus.length)].fullName = 'Kubus';
-    this.setState({students: studentsKubus});
+    console.log('Calculate');
   }
 
   changeFirst = (event) => {
@@ -100,7 +42,6 @@ class App extends React.Component {
 
     return (
       <React.Fragment>
-        <StudentsTable students={this.state.students}/>
         <div style={{backgroundColor, padding: '1em'}}>
           <label htmlFor='FirstNumber'>First number:</label>
           <input value={this.state.inputValue} id='FirstNumber' type='text' onChange={this.changeFirst}/>
