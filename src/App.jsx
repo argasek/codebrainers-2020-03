@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { codebrainersStudents } from './models/Students';
+import {codebrainersStudents} from './models/Students';
 import Student from './models/Student';
 
 function getRows(students) {
@@ -17,19 +17,19 @@ function getRows(students) {
 class StudentsTable extends React.Component {
 
   render() {
-    const { students } = this.props;
+    const {students} = this.props;
     const rows = getRows(students);
     return (
       <table>
         <thead>
-          <tr>
-            <th>Full Name</th>
-            <th>Beers</th>
-            <th>Frequency</th>
-          </tr>
+        <tr>
+          <th>Full Name</th>
+          <th>Beers</th>
+          <th>Frequency</th>
+        </tr>
         </thead>
         <tbody>
-          {rows}
+        {rows}
         </tbody>
       </table>
     )
@@ -55,14 +55,15 @@ class StudentsTable extends React.Component {
 // }
 
 class App extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       students: codebrainersStudents,
-      inputValue: '',
+      firstValue: '',
+      inputSign: '',
+      secondValue: '',
     };
   }
-
 
 
   onButtonClick = () => {
@@ -72,8 +73,21 @@ class App extends React.Component {
     console.log(this.state.students);
     const studentsKubus = [...this.state.students];
     studentsKubus[student.getRandomInt(studentsKubus.length)].fullName = 'Kubus';
-    this.setState({ students: studentsKubus });
+    this.setState({students: studentsKubus});
   }
+
+  // changeFirst = (event) => {
+  //   console.log(event.target.value);
+  //   this.setState({firstValue: event.target.value});
+  // }
+  // changeSign = (event) => {
+  //   console.log(event.target.value);
+  //   this.setState({inputSign: event.target.value});
+  // }
+  // changeSecond = (event) => {
+  //   console.log(event.target.value);
+  //   this.setState({secondValue: event.target.value});
+  // }
 
   onChange = (event) => {
     
@@ -81,18 +95,23 @@ class App extends React.Component {
     this.setState ({inputValue: event.target.value});
   }
 
+
   render() {
 
     const backgroundColor = '#ccc';
 
     return (
       <React.Fragment>
-        <StudentsTable students={this.state.students} />
-        <div style={{ backgroundColor, padding: '1em' }}>
-          <label htmlFor='FullName'>Name and surname:</label>
-          <input value={this.state.inputValue} id='FullName' type='text' onChange={this.onChange}/>
-          <button style={{ fontSize: '120%' }} onClick={this.onButtonClick}>
-            Sort students, please
+        <StudentsTable students={this.state.students}/>
+        <div style={{backgroundColor, padding: '1em'}}>
+          <label htmlFor='FirstNumber'>First number:</label>
+          <input value={this.state.inputValue} id='FirstNumber' type='number' onChange={this.onChange}/>
+          <label htmlFor='Operation'>Operation:</label>
+          <input value={this.state.inputValue} id='Operation' type='text' onChange={this.onChange}/>
+          <label htmlFor='SecondNumber'>Second number:</label>
+          <input value={this.state.inputValue} id='SecondNumber' type='number' onChange={this.onChange}/>
+          <button style={{fontSize: '120%'}} onClick={this.onButtonClick}>
+            Calculate
           </button>
         </div>
       </React.Fragment>
