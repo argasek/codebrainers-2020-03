@@ -3,16 +3,16 @@ import './App.css';
 
 
 function onlyNumber(field) {
-    if (isNaN(parseFloat(field))) {
-      return alert('Tutaj trzeba wpisać liczbę!');
-    }
+  if (isNaN(parseFloat(field)) && field !== '') {
+    return alert('Tutaj trzeba wpisać liczbę!');
+  }
 }
 
 function onlySign(field) {
   const signs = ['+', '-', '*', '/', ''];
   let check = false;
-  for(let i=0; i < signs.length; i++){
-    if(field === signs[i]){
+  for (let i = 0; i < signs.length; i++) {
+    if (field === signs[i]) {
       check = true;
       return check;
     }
@@ -25,6 +25,10 @@ function notDivideByZero(signInput, zeroInput) {
   if ((signInput === '/') && (parseInt(zeroInput) === 0)) {
     return alert('Nie dziel przez zero Ty... brzydki człowieku.');
   }
+}
+
+function doMathOperation(firstValue, operationSign, secondValue) {
+  return operationSign === '+' ? firstValue + secondValue : alert('nie dodadawanie');
 }
 
 
@@ -67,11 +71,11 @@ class App extends React.Component {
       <React.Fragment>
         <div style={{backgroundColor, padding: '1em'}}>
           <label htmlFor='FirstNumber'>First number:</label>
-          <input value={this.state.inputValue} id='FirstNumber' type='text' onChange={this.changeFirst}/>
+          <input value={this.state.firstValue} id='FirstNumber' type='text' onChange={this.changeFirst}/>
           <label htmlFor='Operation'>Operation:</label>
-          <input value={this.state.inputValue} id='Operation' type='text' onChange={this.changeSign}/>
+          <input value={this.state.inputSign} id='Operation' type='text' onChange={this.changeSign}/>
           <label htmlFor='SecondNumber'>Second number:</label>
-          <input value={this.state.inputValue} id='SecondNumber' type='text' onChange={this.changeSecond}/>
+          <input value={this.state.secondValue} id='SecondNumber' type='text' onChange={this.changeSecond}/>
           <button style={{fontSize: '120%'}} onClick={this.onButtonClick}>
             Calculate
           </button>
