@@ -4,37 +4,44 @@ import './App.css';
 
 function onlyNumber(field) {
   if (isNaN(parseFloat(field)) && field !== '') {
-    return alert('Tutaj trzeba wpisać liczbę!');
+    alert('Enter the number.');
+    return true;
   }
 }
 
 function onlySign(field) {
   const signs = ['+', '-', '*', '/', ''];
-  let check = false;
+  let check = true;
   for (let i = 0; i < signs.length; i++) {
     if (field === signs[i]) {
-      check = true;
+      check = false;
       return check;
     }
-    // return field === signs[i] ? check=true : check
   }
-  return check ? signs : alert('Tutaj wpisz jeden ze znaków: +, -, * lub /.');
+  if (check) {
+    alert('Enter one of the signs +, -, * or /.');
+    return true;
+  }
 }
 
-function notDivideByZero(signInput, zeroInput) {
-  if ((signInput === '/') && (parseInt(zeroInput) === 0)) {
-    return alert('Nie dziel przez zero Ty... brzydki człowieku.');
+function notDivideByZero(operationSign, secondValue) {
+  while ((operationSign === '/') && (parseInt(secondValue) === 0)) {
+    alert('Don\'t divide by zero!!!!');
+    return true;
   }
 }
 
 function doMathOperation(firstValue, operationSign, secondValue) {
   const a = parseFloat(firstValue);
   const b = parseFloat(secondValue);
-  return operationSign === '' || firstValue === '' || secondValue === '' ? alert('Wypełnij wszystkie pola!') :
-    operationSign === '+' ? a + b :
-      operationSign === '-' ? a - b :
-        operationSign === '*' ? a * b :
-          a / b;
+
+  return operationSign === '' || firstValue === '' || secondValue === '' ? alert('Complete all fields!') :
+    notDivideByZero(operationSign, secondValue) ? false :
+      onlyNumber(firstValue) || onlyNumber(secondValue) || onlySign(operationSign) ? false :
+        operationSign === '+' ? a + b :
+          operationSign === '-' ? a - b :
+            operationSign === '*' ? a * b :
+              a / b;
 }
 
 
@@ -51,7 +58,6 @@ class App extends React.Component {
 
 
   onButtonClick = () => {
-    // doMathOperation(this.state.firstValue, this.state.inputSign, this.state.secondValue);
     this.setState({result: doMathOperation(this.state.firstValue, this.state.inputSign, this.state.secondValue)});
   }
 
@@ -84,22 +90,26 @@ class App extends React.Component {
               to enter one of the sign: +, -, *, /. Have fun!</h4>
           </header>
           <table>
+            <thead>
             <tr>
               <th><label htmlFor='FirstNumber'>First number</label></th>
               <th><label htmlFor='Operation'>Operation</label></th>
               <th><label htmlFor='SecondNumber'>Second number</label></th>
             </tr>
+            </thead>
+            <tbody>
             <tr>
               <td><input value={this.state.firstValue} id='FirstNumber' type='text' onChange={this.changeFirst}/></td>
               <td><input value={this.state.inputSign} id='Operation' type='text' onChange={this.changeSign}/></td>
               <td><input value={this.state.secondValue} id='SecondNumber' type='text' onChange={this.changeSecond}/>
               </td>
             </tr>
+            </tbody>
           </table>
           <button onClick={this.onButtonClick}>
             Calculate
           </button>
-          <span>Wynik działania to: {this.state.result}</span>
+          <span>Result the operation is: {this.state.result}</span>
         </div>
       </React.Fragment>
     );
