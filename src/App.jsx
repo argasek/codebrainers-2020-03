@@ -78,13 +78,25 @@ class App extends React.Component {
     return (
       <React.Fragment>
         <div style={{backgroundColor, padding: '1em'}}>
-          <label htmlFor='FirstNumber'>First number:</label>
-          <input value={this.state.firstValue} id='FirstNumber' type='text' onChange={this.changeFirst}/>
-          <label htmlFor='Operation'>Operation:</label>
-          <input value={this.state.inputSign} id='Operation' type='text' onChange={this.changeSign}/>
-          <label htmlFor='SecondNumber'>Second number:</label>
-          <input value={this.state.secondValue} id='SecondNumber' type='text' onChange={this.changeSecond}/>
-          <button style={{fontSize: '120%'}} onClick={this.onButtonClick}>
+          <header>
+            <h1>Calculator</h1>
+            <h4>You can see three fields below to enter your Math operation on two numbers. In the middle field you have
+              to enter one of the sign: +, -, *, /. Have fun!</h4>
+          </header>
+          <table>
+            <tr>
+              <th><label htmlFor='FirstNumber'>First number</label></th>
+              <th><label htmlFor='Operation'>Operation</label></th>
+              <th><label htmlFor='SecondNumber'>Second number</label></th>
+            </tr>
+            <tr>
+              <td><input value={this.state.firstValue} id='FirstNumber' type='text' onChange={this.changeFirst}/></td>
+              <td><input value={this.state.inputSign} id='Operation' type='text' onChange={this.changeSign}/></td>
+              <td><input value={this.state.secondValue} id='SecondNumber' type='text' onChange={this.changeSecond}/>
+              </td>
+            </tr>
+          </table>
+          <button onClick={this.onButtonClick}>
             Calculate
           </button>
           <span>Wynik działania to: {this.state.result}</span>
