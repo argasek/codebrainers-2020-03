@@ -1,16 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormFeedback, FormGroup, Input, Label } from 'reactstrap';
 
-const InputOperatorField = ({ value, onChange }) => {
+const InputOperatorField = ({ value, onChange, errorMessage = '', name }) => {
   return (
-    <input
-      value={ value }
-      placeholder="Enter: *, /, +, -"
-      style={ { margin: '0 20px' } }
-      type="text"
-      onChange={ onChange }
-    />
-  )
+    <FormGroup>
+      <Label for={ name }>Operator:</Label>
+      <Input
+        type="text"
+        name={ name }
+        id={ name }
+        placeholder="*, /, +, -"
+        value={ value }
+        onChange={ onChange }
+        invalid={ errorMessage !== '' }
+      />
+      <FormFeedback>{ errorMessage }</FormFeedback>
+    </FormGroup>
+
+  );
 };
 
 InputOperatorField.propTypes = {

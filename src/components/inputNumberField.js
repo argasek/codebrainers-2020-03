@@ -1,18 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Input, FormFeedback, Label, FormGroup } from 'reactstrap';
 
-const InputNumberField = ({ value, onChange }) => {
+const InputNumberField = ({ value, onChange, errorMessage = '', name }) => {
   return (
-    <input
-      value={ value }
-      placeholder="enter the value"
-      type="text"
-      onChange={ onChange }
-    />
-  )
+    <FormGroup>
+      <Label for={ name }>Some number:</Label>
+      <Input
+        type="text"
+        name={name}
+        id={ name }
+        placeholder="Enter number"
+        value={ value }
+        onChange={ onChange }
+        invalid={errorMessage !== ''}
+      />
+      <FormFeedback>{ errorMessage }</FormFeedback>
+    </FormGroup>
+
+  );
 };
 
 InputNumberField.propTypes = {
+  errorMessage: PropTypes.string,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
 };

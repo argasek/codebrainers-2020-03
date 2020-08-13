@@ -3,6 +3,11 @@ import './App.css';
 import InputNumberField from './components/inputNumberField';
 import InputOperatorField from './components/inputOperatorField';
 import { calculate } from './services/mathService';
+import Card from 'reactstrap/es/Card';
+import CardBody from 'reactstrap/es/CardBody';
+import Row from 'reactstrap/es/Row';
+import Col from 'reactstrap/es/Col';
+import Button from 'reactstrap/es/Button';
 
 class App extends React.Component {
   constructor(props) {
@@ -73,26 +78,49 @@ class App extends React.Component {
     } = this.state;
 
     return (
-      <>
-        <InputNumberField
-          onChange={event => this.setField(event, 'firstNumber')}
-          value={firstNumber}
-        />
-        <InputOperatorField
-          onChange={event => this.setField(event, 'operator')}
-          value={operator}
-        />
-        <InputNumberField
-          onChange={event => this.setField(event, 'secondNumber')}
-          value={secondNumber}
-        />
-        <p>=</p>
-        <p>{ result }</p>
-        { errorMessage !== '' &&
-          <p>{ errorMessage }</p>
-        }
-        <button onClick={ this.performCalculations }>Calculate</button>
-      </>
+      <div className="container pt-3">
+        <Card>
+          <CardBody>
+            <Row>
+              <Col>
+                <InputNumberField
+                  onChange={ event => this.setField(event, 'firstNumber') }
+                  value={ firstNumber }
+                  name="firstName"
+                />
+
+              </Col>
+              <Col>
+                <InputOperatorField
+                  onChange={ event => this.setField(event, 'operator') }
+                  value={ operator }
+                  name="operator"
+                />
+
+              </Col>
+              <Col>
+                <InputNumberField
+                  onChange={ event => this.setField(event, 'secondNumber') }
+                  value={ secondNumber }
+                  name="secondNumber"
+                />
+
+              </Col>
+
+            </Row>
+            <p>
+              =
+              { ' ' }
+              { result === '' ? '?' : result }
+            </p>
+            { errorMessage !== '' &&
+            <p>{ errorMessage }</p>
+            }
+            <Button color="primary" onClick={ this.performCalculations }>Calculate</Button>
+
+          </CardBody>
+        </Card>
+      </div>
     );
   }
 

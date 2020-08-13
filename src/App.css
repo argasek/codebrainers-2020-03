@@ -53,3 +53,7 @@ table th {
 table {
   border-collapse: collapse;
 }
+
+.error-message {
+  color: darkred;
+}
