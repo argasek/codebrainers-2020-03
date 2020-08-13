@@ -1,74 +1,102 @@
 import React from 'react';
 import './App.css';
 
+const InputNumberField = ({ value, onChange }) => {
+  return (
+    <input
+      value={ value }
+      placeholder="enter the value"
+      type="text"
+      onChange={ onChange }
+    />
+  )
+};
+
+const InputOperatorField = ({ value, onChange }) => {
+  return (
+    <input
+      value={ value }
+      placeholder="Enter: *, /, +, -"
+      style={ { margin: '0 20px' } }
+      type="text"
+      onChange={ onChange }
+    />
+  )
+};
 
 class App extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
-      inputFirstValue: '',
-      inputSecondValue: '',
-      inputThirdValue: '',
-      score: ''
+      firstNumber: '',
+      operator: '',
+      secondNumber: '',
+      result: ''
     };
   }
 
-  onChangeFirst = (event) => {
-    this.setState({
-      inputFirstValue: parseFloat(event.target.value),
-    })
-  }
+  setFieldAsFloat = (event, key) => {
+    this.setState({ [key]: parseFloat(event.target.value) });
+  };
 
-  onChangeSecond = (event) => {
-    this.setState({
-      inputSecondValue: event.target.value,
-    })
-  }
+  setOperator = (event) => {
+    this.setState({ operator: event.target.value });
+  };
 
-  onChangeThird = (event) => {
-    this.setState({
-      inputThirdValue: parseFloat(event.target.value),
-    })
-  }
-
-  CalcualteBtn = () => {
+  performCalculations = () => {
     let newScore;
-    if (this.state.inputSecondValue === '+' && this.state.inputFirstValue !== "" && typeof this.state.inputFirstValue !== "string"
-      && this.state.inputThirdValue !== "" && typeof this.state.inputThirdValue !== "string") {
-      newScore = this.state.inputFirstValue + this.state.inputThirdValue;
 
-    } else if (this.state.inputSecondValue === '-' && this.state.inputFirstValue !== "" && typeof this.state.inputFirstValue !== "string"
-      && this.state.inputThirdValue !== "" && typeof this.state.inputThirdValue !== "string") {
-      newScore = this.state.inputFirstValue - this.state.inputThirdValue;
-    } else if (this.state.inputSecondValue === '*' && this.state.inputFirstValue !== "" && typeof this.state.inputFirstValue !== "string"
-      && this.state.inputThirdValue !== "" && typeof this.state.inputThirdValue !== "string") {
-      newScore = this.state.inputFirstValue * this.state.inputThirdValue;
-    } else if (this.state.inputSecondValue === '/' && this.state.inputFirstValue !== "" && typeof this.state.inputFirstValue !== "string"
-      && this.state.inputThirdValue !== "" && typeof this.state.inputThirdValue !== "string" && this.state.inputFirstValue !== 0 && this.state.inputThirdValue !== 0) {
-      newScore = this.state.inputFirstValue / this.state.inputThirdValue;
+    if (this.state.operator === '+' && this.state.firstNumber !== "" && typeof this.state.firstNumber !== "string"
+      && this.state.secondNumber !== "" && typeof this.state.secondNumber !== "string") {
+      newScore = this.state.firstNumber + this.state.secondNumber;
+
+    } else if (this.state.operator === '-' && this.state.firstNumber !== "" && typeof this.state.firstNumber !== "string"
+      && this.state.secondNumber !== "" && typeof this.state.secondNumber !== "string") {
+      newScore = this.state.firstNumber - this.state.secondNumber;
+    } else if (this.state.operator === '*' && this.state.firstNumber !== "" && typeof this.state.firstNumber !== "string"
+      && this.state.secondNumber !== "" && typeof this.state.secondNumber !== "string") {
+      newScore = this.state.firstNumber * this.state.secondNumber;
+    } else if (this.state.operator === '/' && this.state.firstNumber !== "" && typeof this.state.firstNumber !== "string"
+      && this.state.secondNumber !== "" && typeof this.state.secondNumber !== "string" && this.state.firstNumber !== 0 && this.state.secondNumber !== 0) {
+      newScore = this.state.firstNumber / this.state.secondNumber;
     } else {
-      newScore = "Value in the inputs are invalid"
+      newScore = "Value in the inputs are invalid";
     }
     this.setState({
       score: newScore,
-      inputFirstValue: '',
-      inputSecondValue: '',
-      inputThirdValue: '',
-    })
-  }
+      firstNumber: '',
+      operator: '',
+      secondNumber: '',
+    });
+  };
 
   render() {
+    const {
+      firstNumber,
+      secondNumber,
+      operator,
+      result
+    } = this.state;
 
     return (
       <>
-        <input value={this.state.inputFirstValue} placeholder="enter the value" type="text" onChange={this.onChangeFirst} />
-        <input value={this.state.inputSecondValue} placeholder="Enter:*,/, +,-" style={{ margin: '0 20px' }} type="text" onChange={this.onChangeSecond} />
-        <input value={this.state.inputThirdValue} placeholder="enter the value" type="text" onChange={this.onChangeThird} />
+        <InputNumberField
+          onChange={event => this.setFieldAsFloat(event, 'firstNumber')}
+          value={firstNumber}
+        />
+        <InputOperatorField
+          onChange={this.setOperator}
+          valu={operator}
+        />
+        <InputNumberField
+          onChange={event => this.setFieldAsFloat(event, 'secondNumber')}
+          value={secondNumber}
+        />
         <p>=</p>
-        <p>{this.state.score}</p>
-        <button onClick={this.CalcualteBtn}>Calculate</button>
+        <p>{ result }</p>
+        <button onClick={ this.performCalculations }>Calculate</button>
       </>
-    )
+    );
   }
 
 }
