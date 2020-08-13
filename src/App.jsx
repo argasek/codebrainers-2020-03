@@ -14,8 +14,10 @@ class App extends React.Component {
     super(props);
     this.state = {
       firstNumber: '',
+      firstNumberValid: '',
       operator: '',
       secondNumber: '',
+      secondNumberValid: '',
       result: '',
       errorMessage: ''
     };
@@ -33,6 +35,13 @@ class App extends React.Component {
       return true;
     }
     return false;
+  }
+
+  validateField(key) {
+    const value = this.state[key];
+    const parsedValue = parseFloat(value);
+    const errorMessage = value !== '' && isNaN(parsedValue) ? 'Field value is not a number!' : '';
+    this.setState({ [key + 'Valid']: errorMessage });
   }
 
   isDivisionByZero(operator, value) {
@@ -70,6 +79,8 @@ class App extends React.Component {
 
   render() {
     const {
+      firstNumberValid,
+      secondNumberValid,
       errorMessage,
       firstNumber,
       secondNumber,
@@ -86,7 +97,9 @@ class App extends React.Component {
                 <InputNumberField
                   onChange={ event => this.setField(event, 'firstNumber') }
                   value={ firstNumber }
+                  errorMessage={ firstNumberValid }
                   name="firstName"
+                  validate={event => this.validateField('firstNumber')}
                 />
 
               </Col>
@@ -101,8 +114,10 @@ class App extends React.Component {
               <Col>
                 <InputNumberField
                   onChange={ event => this.setField(event, 'secondNumber') }
+                  errorMessage={ secondNumberValid }
                   value={ secondNumber }
                   name="secondNumber"
+                  validate={event => this.validateField('secondNumber')}
                 />
 
               </Col>
