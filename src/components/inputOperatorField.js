@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const InputOperatorField = ({ value, onChange }) => {
   return (
@@ -10,6 +11,11 @@ const InputOperatorField = ({ value, onChange }) => {
       onChange={ onChange }
     />
   )
+};
+
+InputOperatorField.propTypes = {
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default InputOperatorField;
