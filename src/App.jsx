@@ -16,8 +16,6 @@ function getRows(students) {
 
 function getRepeated(students1, students2) {
   const repeated = [];
-
-  // console.log(students1[i], students2[i]);
   for (let i = 0; i < students1.length; i++) {
     for (let j = 0; j < students2.length; j++) {
       if (students1[i].fullName === students2[j].fullName) {
@@ -25,7 +23,7 @@ function getRepeated(students1, students2) {
       }
     }
   }
-  console.log(repeated);
+
   const studentArray = repeated.map(function (studentName, index) {
     return <tr key={index}>
       <td>{studentName}</td>
@@ -35,26 +33,6 @@ function getRepeated(students1, students2) {
   return studentArray;
 }
 
-// function getRepeated(table1, table2) {
-//   const keysArray = Object.keys(table1[0]);
-//   console.log(keysArray);
-//
-//   const repeated = table1.map(function (student, index) {
-//     let arr = [];
-//     for (let i = 0; i < table2.length; i++) {
-//       keysArray.map(function (prop) {
-//         if (student.prop !== table2[i].prop) {
-//           console.log('Student not equal: ' + student);
-//           return;
-//         }
-//       })
-//       arr.push(student);
-//     }
-//     console.log('Arr: '+ arr + 'Students equal: '+ student);
-//     return arr;
-//   });
-//   return repeated;
-// }
 
 function StudentsTable({students}) {
   const rows = getRows(students);
@@ -84,23 +62,25 @@ function StudentsBothTable({students1, students2}) {
       </tr>
       </thead>
       <tbody>
-      { rows }
+      {rows}
       </tbody>
     </table>
   )
 }
 
 function App() {
-  // const students = new Students();
-  // students.setStudents(codebrainersStudents);
-  // students.sortByFrequencyAsc();
-  //
-  // console.log(codebrainersStudents);
+  const students1 = new Students();
+  students1.setStudents(codebrainersStudents);
+  students1.sortStudents();
+
+  const students2 = new Students();
+  students2.setStudents(someOtherBootcampStudents);
+  students2.sortStudents();
 
   return (
     <React.Fragment>
-      <StudentsTable students={codebrainersStudents}/>
-      <StudentsTable students={someOtherBootcampStudents}/>
+      <StudentsTable students={students1.items}/>
+      <StudentsTable students={students2.items}/>
       <StudentsBothTable students1={codebrainersStudents} students2={someOtherBootcampStudents}/>
     </React.Fragment>
   );

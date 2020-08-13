@@ -26,8 +26,8 @@ class Students {
     this.items.push(student);
   }
 
-  sortByFrequencyAsc (){
-    this.items.sort((a,b) => a.frequency-b.frequency);
+  sortStudents (){
+    this.items.sort((a,b) => b.frequency - a.frequency);
   }
 
   setStudents (students){
