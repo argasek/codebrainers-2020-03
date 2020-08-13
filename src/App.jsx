@@ -1,33 +1,9 @@
 import React from 'react';
 import './App.css';
+import InputNumberField from './components/inputNumberField';
+import InputOperatorField from './components/inputOperatorField';
+import { calculate } from './services/mathService';
 
-const InputNumberField = ({ value, onChange }) => {
-  return (
-    <input
-      value={ value }
-      placeholder="enter the value"
-      type="text"
-      onChange={ onChange }
-    />
-  )
-};
-
-const InputOperatorField = ({ value, onChange }) => {
-  return (
-    <input
-      value={ value }
-      placeholder="Enter: *, /, +, -"
-      style={ { margin: '0 20px' } }
-      type="text"
-      onChange={ onChange }
-    />
-  )
-};
-
-const add = (a, b) => a + b;
-const subtract = (a, b) => a - b;
-const multiply = (a, b) => a * b;
-const divide = (a, b) => a / b;
 
 // firstNumber !== "" &&
 // typeof firstNumber !== "string" &&
@@ -56,17 +32,7 @@ class App extends React.Component {
 
   performCalculations = () => {
     const { firstNumber, secondNumber, operator } = this.state;
-
-    const operations = {
-      '+': add,
-      '-': subtract,
-      '*': multiply,
-      '/': divide,
-    };
-
-    const operation = operations[operator];
-    const result = operation(firstNumber, secondNumber);
-
+    const result = calculate(firstNumber, secondNumber, operator);
     this.setState({ result });
   };
 
