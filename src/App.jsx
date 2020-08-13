@@ -4,13 +4,6 @@ import InputNumberField from './components/inputNumberField';
 import InputOperatorField from './components/inputOperatorField';
 import { calculate } from './services/mathService';
 
-
-// firstNumber !== "" &&
-// typeof firstNumber !== "string" &&
-// secondNumber !== "" &&
-// typeof secondNumber !== "string"
-
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -30,7 +23,8 @@ class App extends React.Component {
   setErrorMessageIfNaN(value, errorMessage) {
     const parsedValue = parseFloat(value);
     if (isNaN(parsedValue)) {
-      this.setState({ errorMessage });
+      const result = '';
+      this.setState({ errorMessage, result });
       return true;
     }
     return false;
@@ -59,12 +53,14 @@ class App extends React.Component {
 
     if (this.isDivisionByZero(operator, b)) {
       const errorMessage = 'Division by 0 is not allowed';
-      this.setState({ errorMessage });
+      const result = '';
+      this.setState({ errorMessage, result });
       return;
     }
 
     const result = calculate(a, b, operator);
-    this.setState({ result });
+    const errorMessage = '';
+    this.setState({ result, errorMessage });
   };
 
   render() {
@@ -76,20 +72,12 @@ class App extends React.Component {
       result
     } = this.state;
 
-    console.log(typeof firstNumber);
-
     return (
       <>
         <InputNumberField
           onChange={event => this.setField(event, 'firstNumber')}
           value={firstNumber}
         />
-        {/*{*/}
-        {/*  firstNumber !== '' && isNaN(firstNumber) &&*/}
-        {/*  <p>*/}
-        {/*    This is not a correct value: {firstNumber}*/}
-        {/*  </p>*/}
-        {/*}*/}
         <InputOperatorField
           onChange={event => this.setField(event, 'operator')}
           value={operator}
