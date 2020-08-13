@@ -24,6 +24,17 @@ const InputOperatorField = ({ value, onChange }) => {
   )
 };
 
+const add = (a, b) => a + b;
+const subtract = (a, b) => a - b;
+const multiply = (a, b) => a * b;
+const divide = (a, b) => a / b;
+
+// firstNumber !== "" &&
+// typeof firstNumber !== "string" &&
+// secondNumber !== "" &&
+// typeof secondNumber !== "string"
+
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -44,30 +55,19 @@ class App extends React.Component {
   };
 
   performCalculations = () => {
-    let newScore;
+    const { firstNumber, secondNumber, operator } = this.state;
 
-    if (this.state.operator === '+' && this.state.firstNumber !== "" && typeof this.state.firstNumber !== "string"
-      && this.state.secondNumber !== "" && typeof this.state.secondNumber !== "string") {
-      newScore = this.state.firstNumber + this.state.secondNumber;
+    const operations = {
+      '+': add,
+      '-': subtract,
+      '*': multiply,
+      '/': divide,
+    };
 
-    } else if (this.state.operator === '-' && this.state.firstNumber !== "" && typeof this.state.firstNumber !== "string"
-      && this.state.secondNumber !== "" && typeof this.state.secondNumber !== "string") {
-      newScore = this.state.firstNumber - this.state.secondNumber;
-    } else if (this.state.operator === '*' && this.state.firstNumber !== "" && typeof this.state.firstNumber !== "string"
-      && this.state.secondNumber !== "" && typeof this.state.secondNumber !== "string") {
-      newScore = this.state.firstNumber * this.state.secondNumber;
-    } else if (this.state.operator === '/' && this.state.firstNumber !== "" && typeof this.state.firstNumber !== "string"
-      && this.state.secondNumber !== "" && typeof this.state.secondNumber !== "string" && this.state.firstNumber !== 0 && this.state.secondNumber !== 0) {
-      newScore = this.state.firstNumber / this.state.secondNumber;
-    } else {
-      newScore = "Value in the inputs are invalid";
-    }
-    this.setState({
-      score: newScore,
-      firstNumber: '',
-      operator: '',
-      secondNumber: '',
-    });
+    const operation = operations[operator];
+    const result = operation(firstNumber, secondNumber);
+
+    this.setState({ result });
   };
 
   render() {
