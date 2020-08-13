@@ -23,6 +23,13 @@ class App extends React.Component {
     };
   }
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    console.log(snapshot);
+    if (prevState.firstNumber !== this.state.firstNumber) {
+      this.validateField('firstNumber');
+    }
+  }
+
   setField = (event, key) => {
     this.setState({ [key]: event.target.value });
   };
@@ -99,7 +106,6 @@ class App extends React.Component {
                   value={ firstNumber }
                   errorMessage={ firstNumberValid }
                   name="firstName"
-                  validate={event => this.validateField('firstNumber')}
                 />
 
               </Col>

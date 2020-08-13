@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Input, FormFeedback, Label, FormGroup } from 'reactstrap';
 
-const InputNumberField = ({ value, onChange, validate, errorMessage = '', name }) => {
+const InputNumberField = ({ value, onChange, errorMessage = '', name }) => {
   return (
     <FormGroup>
       <Label for={ name }>Some number:</Label>
@@ -13,7 +13,6 @@ const InputNumberField = ({ value, onChange, validate, errorMessage = '', name }
         placeholder="Enter number"
         value={ value }
         onChange={ onChange }
-        onBlur={ validate }
         invalid={errorMessage !== ''}
       />
       <FormFeedback>{ errorMessage }</FormFeedback>
