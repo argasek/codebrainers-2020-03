@@ -1,103 +1,77 @@
 import React from 'react';
 import './App.css';
-import { codebrainersStudents } from './models/Students';
-import Student from './models/Student';
 
-function getRows(students) {
-  const arr = students.map(function (student, index) {
-    return <tr key={index}>
-      <td>{student.fullName}</td>
-      <td>{student.beers}</td>
-      <td>{student.frequency}</td>
-    </tr>;
-  });
-  return arr;
-}
-
-class StudentsTable extends React.Component {
-
-  render() {
-    const { students } = this.props;
-    const rows = getRows(students);
-    return (
-      <table>
-        <thead>
-          <tr>
-            <th>Full Name</th>
-            <th>Beers</th>
-            <th>Frequency</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows}
-        </tbody>
-      </table>
-    )
-  }
-}
-
-// function StudentsTable({ students }) {
-//   const rows = getRows(students);
-//   return (
-//     <table>
-//       <thead>
-//       <tr>
-//         <th>Full Name</th>
-//         <th>Beers</th>
-//         <th>Frequency</th>
-//       </tr>
-//       </thead>
-//       <tbody>
-//         { rows }
-//       </tbody>
-//     </table>
-//   )
-// }
 
 class App extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      students: codebrainersStudents,
-      inputValue: '',
+      inputFirstValue: '',
+      inputSecondValue: '',
+      inputThirdValue: '',
+      score: ''
     };
   }
 
-
-
-  onButtonClick = () => {
-
-    const student = new Student();
-
-    console.log(this.state.students);
-    const studentsKubus = [...this.state.students];
-    studentsKubus[student.getRandomInt(studentsKubus.length)].fullName = 'Kubus';
-    this.setState({ students: studentsKubus });
+  onChangeFirst = (event) => {
+    this.setState({
+      inputFirstValue: parseFloat(event.target.value),
+    })
   }
 
-  onChange = (event) => {
-    
-    console.log(event.target.value);
-    this.setState ({inputValue: event.target.value});
+  onChangeSecond = (event) => {
+    this.setState({
+      inputSecondValue: event.target.value,
+    })
+  }
+
+  onChangeThird = (event) => {
+    this.setState({
+      inputThirdValue: parseFloat(event.target.value),
+    })
+  }
+
+  CalcualteBtn = () => {
+    let newScore;
+    if (this.state.inputSecondValue === '+' && this.state.inputFirstValue !== "" && typeof this.state.inputFirstValue !== "string"
+      && this.state.inputThirdValue !== "" && typeof this.state.inputThirdValue !== "string") {
+      newScore = this.state.inputFirstValue + this.state.inputThirdValue;
+
+    } else if (this.state.inputSecondValue === '-' && this.state.inputFirstValue !== "" && typeof this.state.inputFirstValue !== "string"
+      && this.state.inputThirdValue !== "" && typeof this.state.inputThirdValue !== "string") {
+      newScore = this.state.inputFirstValue - this.state.inputThirdValue;
+    } else if (this.state.inputSecondValue === '*' && this.state.inputFirstValue !== "" && typeof this.state.inputFirstValue !== "string"
+      && this.state.inputThirdValue !== "" && typeof this.state.inputThirdValue !== "string") {
+      newScore = this.state.inputFirstValue * this.state.inputThirdValue;
+    } else if (this.state.inputSecondValue === '/' && this.state.inputFirstValue !== "" && typeof this.state.inputFirstValue !== "string"
+      && this.state.inputThirdValue !== "" && typeof this.state.inputThirdValue !== "string" && this.state.inputFirstValue !== 0 && this.state.inputThirdValue !== 0) {
+      newScore = this.state.inputFirstValue / this.state.inputThirdValue;
+    } else {
+      newScore = "Value in the inputs are invalid"
+    }
+    this.setState({
+      score: newScore,
+      inputFirstValue: '',
+      inputSecondValue: '',
+      inputThirdValue: '',
+    })
   }
 
   render() {
 
-    const backgroundColor = '#ccc';
-
     return (
-      <React.Fragment>
-        <StudentsTable students={this.state.students} />
-        <div style={{ backgroundColor, padding: '1em' }}>
-          <label htmlFor='FullName'>Name and surname:</label>
-          <input value={this.state.inputValue} id='FullName' type='text' onChange={this.onChange}/>
-          <button style={{ fontSize: '120%' }} onClick={this.onButtonClick}>
-            Sort students, please
-          </button>
-        </div>
-      </React.Fragment>
-    );
+      <>
+        <input value={this.state.inputFirstValue} placeholder="enter the value" type="text" onChange={this.onChangeFirst} />
+        <input value={this.state.inputSecondValue} placeholder="Enter:*,/, +,-" style={{ margin: '0 20px' }} type="text" onChange={this.onChangeSecond} />
+        <input value={this.state.inputThirdValue} placeholder="enter the value" type="text" onChange={this.onChangeThird} />
+        <p>=</p>
+        <p>{this.state.score}</p>
+        <button onClick={this.CalcualteBtn}>Calculate</button>
+      </>
+    )
   }
+
 }
+
 
 export default App;
