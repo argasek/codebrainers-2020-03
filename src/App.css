@@ -53,10 +53,11 @@ span {
 
 table {
   margin: 0 auto;
+  text-align: center;
 }
 
 table input {
-  margin: 0 50px;
+  margin: 10px 50px;
   width: 150px;
 }
 
