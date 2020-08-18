@@ -1,7 +1,23 @@
 import React from 'react';
 import InputField from "./components/inputField";
-import {Form, Table} from 'reactstrap';
+import {Form} from 'reactstrap';
 import './App.css';
+
+
+function onlySign(field) {
+  const signs = ['+', '-', '*', '/', ''];
+  let check = true;
+  for (let i = 0; i < signs.length; i++) {
+    if (field === signs[i]) {
+      check = false;
+      return check;
+    }
+  }
+  if (check) {
+    alert('Enter one of the signs +, -, * or /.');
+    return true;
+  }
+}
 
 
 class App extends React.Component {
@@ -15,39 +31,22 @@ class App extends React.Component {
       operatorValid: '',
       secondNumberValid: '',
       result: '',
-      errorMessage: '',
+      errorMessage: 'error message from state',
     };
   }
 
-  onlySign = (field) => {
-    const errorMessage = 'Invalid character!'
-    const signs = ['+', '-', '*', '/', ''];
-    let check = true;
-    let sign;
-    for (let i = 0; i < signs.length; i++) {
-      if (field === signs[i]) {
-        check = false;
-        sign = signs[i];
-        return check;
-      }
-    }
-    if (check) {
-      this.setState({errorMessage: errorMessage});
-      console.log(field, sign);
-      return true;
-    }
-  }
-
   onlyNumber(field) {
-    if (isNaN(parseFloat(field))) {
-      const errorMessage = 'It\'s not a number!!!';
-      this.setState({errorMessage: errorMessage});
-      return true;
-    }
+  if (isNaN(parseFloat(field)) && field !== '') {
+    const errorMessage = 'It\'s not a number!!!';
+    this.setState({[field + 'Valid']: errorMessage});
+    console.log(field, field + 'Valid')
+    return true;
+  }
   }
 
   notDivideByZero(operationSign, secondValue) {
-    if ((operationSign === '/') && (parseInt(secondValue) === 0)) {
+    if ((operationSign === '/') && (parseInt(secondValue) === 0))
+    {
       const errorMessage = 'Don\'t divide by zero!!!!';
       this.setState({errorMessage: errorMessage});
       return true;
@@ -60,7 +59,7 @@ class App extends React.Component {
 
     // operationSign === '' || firstValue === '' || secondValue === '' ? alert('Complete all fields!') :
     return this.notDivideByZero(operationSign, secondValue) ? false :
-      this.onlyNumber(firstValue) || this.onlyNumber(secondValue) || this.onlySign(operationSign) ? false :
+      this.onlyNumber(firstValue) || this.onlyNumber(secondValue) || onlySign(operationSign) ? false :
         operationSign === '+' ? a + b :
           operationSign === '-' ? a - b :
             operationSign === '*' ? a * b :
@@ -72,8 +71,13 @@ class App extends React.Component {
   }
   // notDivideByZero(this.state.operator, event.target.value);
 
-  changeFieldValue = (event, key) => {
+  changeNumberValue = (event, key) => {
+    // this.onlyNumber(event.target.value);
     this.setState({[key]: event.target.value});
+  }
+  changeOperatorValue = (event) => {
+    onlySign(event.target.value);
+    this.setState({operator: event.target.value});
   }
 
 
@@ -99,44 +103,36 @@ class App extends React.Component {
               to enter one of the sign: +, -, *, /. Have fun!</h4>
           </header>
           <Form>
-            <Table responsive>
+            <table>
               <tbody>
               <tr>
                 <InputField
                   value={firstNumber}
-                  name='First Number'
+                  id='FirstNumber'
                   type="text"
-
-                  onChange={event => this.changeFieldValue(event, 'firstNumber')}
-                  placeholder="number"
+                  onChange={event => this.changeNumberValue(event, 'firstNumber')}
+                  placeholder="First Number"
                   errorMessage={firstNumberValid}
-                  onBlur={() => this.onlyNumber('firstNumber')}
                 />
                 <InputField
                   value={operator}
-                  name='Operator'
+                  id='Operator'
                   type="text"
-                  onChange={event => this.changeFieldValue(event, 'operator')}
+                  onChange={event => this.changeOperatorValue(event)}
                   placeholder="+, -, * or / "
                   errorMessage={operatorValid}
-                  onBlur={() => this.onlySign('operator')}
                 />
                 <InputField
                   value={secondNumber}
-                  name='Second Number'
+                  id='SecondNumber'
                   type="text"
-                  onChange={event => this.changeFieldValue(event, 'secondNumber')}
-                  placeholder="number"
+                  onChange={event => this.changeNumberValue(event, 'secondNumber')}
+                  placeholder="Second Number"
                   errorMessage={secondNumberValid}
-                  onBlur={() => {
-                    this.onlyNumber('secondNumber');
-                    this.notDivideByZero(operator, 'secondNumber');
-                  }
-                  }
                 />
               </tr>
               </tbody>
-            </Table>
+            </table>
           </Form>
           <button onClick={this.onButtonClick}>
             Calculate
