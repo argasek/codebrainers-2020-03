@@ -4,22 +4,6 @@ import {Form} from 'reactstrap';
 import './App.css';
 
 
-function onlySign(field) {
-  const signs = ['+', '-', '*', '/', ''];
-  let check = true;
-  for (let i = 0; i < signs.length; i++) {
-    if (field === signs[i]) {
-      check = false;
-      return check;
-    }
-  }
-  if (check) {
-    alert('Enter one of the signs +, -, * or /.');
-    return true;
-  }
-}
-
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -31,22 +15,40 @@ class App extends React.Component {
       operatorValid: '',
       secondNumberValid: '',
       result: '',
-      errorMessage: 'error message from state',
+      errorMessage: '',
     };
   }
 
-  onlyNumber(field) {
-  if (isNaN(parseFloat(field)) && field !== '') {
-    const errorMessage = 'It\'s not a number!!!';
-    this.setState({[field + 'Valid']: errorMessage});
-    console.log(field, field + 'Valid')
-    return true;
+  function
+
+  onlySign(field) {
+    const errorMessage = 'Invalid character!';
+    const signs = ['+', '-', '*', '/', ''];
+    let check = true;
+    for (let i = 0; i < signs.length; i++) {
+      if (field === signs[i]) {
+        check = false;
+        return check;
+      }
+    }
+    if (check) {
+      this.setState({errorMessage: errorMessage});
+      return true;
+    }
   }
+
+
+  onlyNumber(field) {
+    if (isNaN(parseFloat(field)) && field !== '') {
+      const errorMessage = 'It\'s not a number!!!';
+      this.setState({errorMessage: errorMessage});
+      // console.log(field, field + 'Valid')
+      return true;
+    }
   }
 
   notDivideByZero(operationSign, secondValue) {
-    if ((operationSign === '/') && (parseInt(secondValue) === 0))
-    {
+    if ((operationSign === '/') && (parseInt(secondValue) === 0)) {
       const errorMessage = 'Don\'t divide by zero!!!!';
       this.setState({errorMessage: errorMessage});
       return true;
@@ -59,7 +61,7 @@ class App extends React.Component {
 
     // operationSign === '' || firstValue === '' || secondValue === '' ? alert('Complete all fields!') :
     return this.notDivideByZero(operationSign, secondValue) ? false :
-      this.onlyNumber(firstValue) || this.onlyNumber(secondValue) || onlySign(operationSign) ? false :
+      this.onlyNumber(firstValue) || this.onlyNumber(secondValue) || this.onlySign(operationSign) ? false :
         operationSign === '+' ? a + b :
           operationSign === '-' ? a - b :
             operationSign === '*' ? a * b :
@@ -71,15 +73,10 @@ class App extends React.Component {
   }
   // notDivideByZero(this.state.operator, event.target.value);
 
-  changeNumberValue = (event, key) => {
+  changeFieldValue = (event, key) => {
     // this.onlyNumber(event.target.value);
     this.setState({[key]: event.target.value});
   }
-  changeOperatorValue = (event) => {
-    onlySign(event.target.value);
-    this.setState({operator: event.target.value});
-  }
-
 
   render() {
     const {
@@ -109,24 +106,27 @@ class App extends React.Component {
                 <InputField
                   value={firstNumber}
                   id='FirstNumber'
+                  name='First Number'
                   type="text"
-                  onChange={event => this.changeNumberValue(event, 'firstNumber')}
+                  onChange={event => this.changeFieldValue(event, 'firstNumber')}
                   placeholder="First Number"
                   errorMessage={firstNumberValid}
                 />
                 <InputField
                   value={operator}
                   id='Operator'
+                  name='Operator'
                   type="text"
-                  onChange={event => this.changeOperatorValue(event)}
+                  onChange={event => this.changeFieldValue(event, 'operator')}
                   placeholder="+, -, * or / "
                   errorMessage={operatorValid}
                 />
                 <InputField
                   value={secondNumber}
                   id='SecondNumber'
+                  name='Second Number'
                   type="text"
-                  onChange={event => this.changeNumberValue(event, 'secondNumber')}
+                  onChange={event => this.changeFieldValue(event, 'secondNumber')}
                   placeholder="Second Number"
                   errorMessage={secondNumberValid}
                 />
