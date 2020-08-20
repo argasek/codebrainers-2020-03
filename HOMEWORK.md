@@ -5,7 +5,7 @@
 Modify App.jsx in that way that:
 1) it renders 3 text input fields
 2) 1. and 3. field should accept a number (any number!)
-3) 2. field should accept one of these characters: '+', '-', '*', '/'
+3) 2. field should accept on of these characters: '+', '-', '*', '/'
 4) if 2. has value '/', 3. field cannot accept 0 (!)
 5) clicking on a 'Calculate' button should display result of a mathematical equation obtained this way, like
 
