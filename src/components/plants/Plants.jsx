@@ -31,7 +31,10 @@ class Plants extends React.PureComponent {
         .get(requestUrl)
         .then((response) => {
           const data = response.data;
-          const plants = data.map((item) => item.name);
+          const plants = data.map((item) => {
+            const { id, name } = item;
+            return { id, name };
+          });
           const successPlants = true;
           this.setState({ plants, successPlants });
           resolve();

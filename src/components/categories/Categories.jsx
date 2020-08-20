@@ -54,8 +54,6 @@ class Categories extends React.PureComponent {
     } = this.state;
 
 
-
-
     return (
       <Card>
         <CardBody>

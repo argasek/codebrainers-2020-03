@@ -5,9 +5,10 @@ import './Plant.scss';
 class Plant extends React.PureComponent {
 
   render() {
+
     return (
       <div>
-        <p>{ this.props.name }</p>
+        <p>{ this.props.id } { ' '} { this.props.name }</p>
       </div>
     )
   }
@@ -15,6 +16,7 @@ class Plant extends React.PureComponent {
 }
 
 Plant.propTypes = {
+  id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired
 };
 

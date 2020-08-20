@@ -1,3 +1,17 @@
+### 2020-08-20
+
+Take a look what's being returned from API (fetch from server) for all pages (i.e.) Plants, Categories and Rooms.
+
+#### Task 1
+
+Modify code in such way that Rooms component displays some data fetched from API.
+
+#### Task 2
+
+Modify code in such way that Plants, Rooms and Categories display as much data as you can extract.
+
+Hint: use Reactstrap [Table](https://reactstrap.github.io/components/tables/) element to make your job easier. 
+
 ### 2020-08-11
 
 #### Task 1
