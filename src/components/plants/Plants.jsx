@@ -57,7 +57,7 @@ class Plants extends React.PureComponent {
           {successPlants && (
             <div className="plants">
               {plants.map((plant, index, arr) => (
-                <Plant name={plant} key={index} />
+                <Plant name={plant.name} id={plant.id} key={index} />
               ))}
             </div>
           )}
