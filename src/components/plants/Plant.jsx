@@ -8,7 +8,7 @@ class Plant extends React.PureComponent {
 
     return (
       <div>
-        <p>{ this.props.id } { ' '} { this.props.name }</p>
+        <p>{ this.props.id } { ' '} { this.props.plant.name }</p>
       </div>
     )
   }
@@ -17,7 +17,7 @@ class Plant extends React.PureComponent {
 
 Plant.propTypes = {
   id: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired
+  plant: PropTypes.object.isRequired
 };
 
 export default Plant;
