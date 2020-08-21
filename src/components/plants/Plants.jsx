@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import Plant from "components/plants/Plant";
 import InProgress from "components/shared/InProgress";
+import { Table } from 'reactstrap';
 
 const PLANTS_FETCH_DELAY = 250;
 
@@ -48,18 +49,36 @@ class Plants extends React.PureComponent {
 
   render() {
     const { plants, successPlants, inProgress } = this.state;
-
+    const titles = ['#', 'name', 'CategorySlug']
     return (
       <Card className="mb-4">
         <CardBody>
           <InProgress inProgress={inProgress} />
           {successPlants === false && <p>Nie udało się pobrać Kwiatow</p>}
           {successPlants && (
-            <div className="plants">
-              {plants.map((plant, index, arr) => (
-                <Plant name={plant.name} key={index} />
-              ))}
-            </div>
+
+            <Table>
+              <thead>
+                <tr>
+
+                  <th>{'#'}</th>
+                  <th>{'name'}</th>
+                  <th>{'CategorySlug'}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+
+                  {plants.map((plant, index, arr) => (
+                    <Plant id={plant.id} name={plant.name} categorySlug={plant.category_slug} key={index} />
+                  ))}
+
+
+                </tr>
+
+              </tbody>
+            </Table>
+
           )}
         </CardBody>
       </Card>

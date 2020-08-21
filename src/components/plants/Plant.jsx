@@ -8,7 +8,13 @@ class Plant extends React.PureComponent {
 
     return (
       <div>
-        <p>{this.props.id} {' '} {this.props.name}</p>
+        <th scope="row">{this.props.id}</th>
+        <td>{this.props.name} </td>
+
+        <td>{this.props.categorySlug}</td>
+
+
+
       </div>
     )
   }
