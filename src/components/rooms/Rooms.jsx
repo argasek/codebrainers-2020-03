@@ -1,16 +1,19 @@
-import React from "react";
-import { Card, CardBody } from "reactstrap";
+import React from 'react';
 
-const Rooms = ({}) => {
+import './Room.scss';
 
-  return (
-    <Card className="mb-4">
-      <CardBody>
-        <p>Yay! A list of rooms!</p>
-      </CardBody>
-    </Card>
-  )
-};
+class Rooms extends React.PureComponent {
+
+  render() {
+
+    return (
+      <div>
+        <p>{this.props.id} {' '} {this.props.name}</p>
+      </div>
+    )
+  }
+
+}
 
 
 export default Rooms;

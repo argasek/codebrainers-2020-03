@@ -8,7 +8,7 @@ import InProgress from "components/shared/InProgress";
 const PLANTS_FETCH_DELAY = 250;
 
 class Plants extends React.PureComponent {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       plants: [],
@@ -57,7 +57,7 @@ class Plants extends React.PureComponent {
           {successPlants && (
             <div className="plants">
               {plants.map((plant, index, arr) => (
-                <Plant name={plant} key={index} />
+                <Plant name={plant.name} key={index} />
               ))}
             </div>
           )}
