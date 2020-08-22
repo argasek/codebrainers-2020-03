@@ -7,7 +7,7 @@ import InProgress from "components/shared/InProgress";
 import { Table } from 'reactstrap';
 import Plant from 'models/Plant';
 
-const PLANTS_FETCH_DELAY = 250;
+const PLANTS_FETCH_DELAY = 10000;
 
 class Plants extends React.PureComponent {
   constructor(props) {

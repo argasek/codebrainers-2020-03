@@ -1,6 +1,6 @@
 class Plant {
   blooming = false;
-  category = undefined;
+  categoryId = undefined;
   categorySlug = '';
   difficulty = 1;
   fertilizingInterval = undefined;
@@ -17,7 +17,7 @@ class Plant {
 
   fromPlain(item) {
     this.blooming = item.blooming;
-    this.category = item.category;
+    this.categoryId = item.category;
     this.categorySlug = item.category_slug;
     this.difficulty = item.difficulty;
     this.fertilizingInterval = item.fertilizing_interval;

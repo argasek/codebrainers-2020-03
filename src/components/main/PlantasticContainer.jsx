@@ -9,7 +9,7 @@ import PlantCreate from 'components/plants/PlantCreate';
 import axios from 'axios';
 import Category from 'models/Category';
 
-const CATEGORIES_FETCH_DELAY = 500;
+const CATEGORIES_FETCH_DELAY = 200;
 
 
 class PlantasticContainer extends React.PureComponent {

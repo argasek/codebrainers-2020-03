@@ -10,7 +10,7 @@ class PlantRow extends React.PureComponent {
   getDifficultyLabel(difficulty) {
     let result = [];
     for (let i = 0; i < difficulty; i++) {
-      result.push(<img key={i} className='mr-1' width='16'
+      result.push(<img key={ i } className='mr-1' width='16'
                        src='https://raw.githubusercontent.com/twitter/twemoji/master/assets/72x72/1f1ea.png'/>);
     }
     return result;
@@ -30,8 +30,10 @@ class PlantRow extends React.PureComponent {
   }
 
   getCategoryLabel(categoryId) {
-
-    return '';
+    const { categories } = this.props;
+    const category = categories.find(category => category.id === categoryId);
+    // return category !== undefined? category.name: "?";
+    return category.name;
   }
 
   render() {
@@ -45,12 +47,14 @@ class PlantRow extends React.PureComponent {
     const difficultyLabel = this.getDifficultyLabel(plant.difficulty);
     const wateringIntervalLabel = this.formatIntervalAsString(plant.wateringInterval)
     console.log(categories);
+    const categoryLabel = this.getCategoryLabel(plant.categoryId);
 
     return (
+
       <tr>
         {/*<td>{ plant.id }</td>*/ }
         <td>{ plant.name }</td>
-        <td>{ plant.category }</td>
+        <td>{ categoryLabel }</td>
         <td>{ wateringIntervalLabel }</td>
         <td>{ plant.fertilizingInterval }</td>
         <td>{ plant.requiredExposure }</td>
