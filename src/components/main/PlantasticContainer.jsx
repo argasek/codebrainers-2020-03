@@ -7,13 +7,14 @@ import Categories from "components/categories/Categories";
 import Rooms from "components/rooms/Rooms";
 import PlantCreate from 'components/plants/PlantCreate';
 import axios from 'axios';
+import Category from 'models/Category';
 
 const CATEGORIES_FETCH_DELAY = 500;
 
 
 class PlantasticContainer extends React.PureComponent {
 
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       categoriesInProgress: false,
@@ -37,7 +38,12 @@ class PlantasticContainer extends React.PureComponent {
       axios.get(requestUrl)
         .then((response) => {
           const data = response.data;
-          const categories = data.map((item) => item.name);
+          const categories = data.map(item => {
+            const category = new Category();
+            category.fromPlain(item);
+            return category;
+          });
+
           const successCategories = true;
           this.setState({ categories, successCategories });
           resolve();
@@ -70,28 +76,28 @@ class PlantasticContainer extends React.PureComponent {
     return (
       <Container>
         <Switch>
-          <Route exact path={ ROUTE_PLANTS }>
+          <Route exact path={ROUTE_PLANTS}>
             <PlantCreate
-              fertilizingFrequency={ fertilizingFrequency }
-              inputOnChange={ inputOnChange }
-              plantName={ plantName }
-              someSelectField={ someSelectField }
+              fertilizingFrequency={fertilizingFrequency}
+              inputOnChange={inputOnChange}
+              plantName={plantName}
+              someSelectField={someSelectField}
             />
             <Plants
-              delayFetch={ delayFetch }
-              categories={ categories }
+              delayFetch={delayFetch}
+              categories={categories}
             />
           </Route>
-          <Route path={ ROUTE_CATEGORIES }>
+          <Route path={ROUTE_CATEGORIES}>
             <Categories
-              categories={ categories }
-              successCategories = {successCategories}
-              categoriesInProgress = {categoriesInProgress}
+              categories={categories}
+              successCategories={successCategories}
+              categoriesInProgress={categoriesInProgress}
             />
           </Route>
-          <Route path={ ROUTE_ROOMS }>
+          <Route path={ROUTE_ROOMS}>
             <Rooms
-              delayFetch={ delayFetch }/>
+              delayFetch={delayFetch} />
           </Route>
         </Switch>
       </Container>
