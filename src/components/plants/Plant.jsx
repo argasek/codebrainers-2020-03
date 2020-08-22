@@ -7,28 +7,6 @@ class Plant extends React.PureComponent {
   render() {
 
     return (
-      // <div>
-      //   <p>{ this.props.id } { this.props.name }</p>
-      // </div>
-
-                        // name={plant}
-                  // id={id}
-                  // key={index}
-                  // url={url}
-                  // category=
-                  // category_slug=
-                  // watering_interval=
-                  // fertilizing_interval=
-                  // required_exposure=
-                  // required_humidity=
-                  // required_temperature=
-                  // // blooming​=
-                  // difficulty=
-                  // // room​=
-                  // last_watered=
-                  // last_fertilized=
-
-      <tbody>
         <tr>
           <td>{this.props.id}</td>
           <td>{this.props.name}</td>
@@ -46,7 +24,6 @@ class Plant extends React.PureComponent {
           <td>{this.props.last_watered}</td>
           <td>{this.props.last_fertilized}</td>
         </tr>
-      </tbody>
     )
   }
 

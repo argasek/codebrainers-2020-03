@@ -1,10 +1,10 @@
-import { Card, CardBody } from "reactstrap";
+import {Card, CardBody} from "reactstrap";
 import React from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import Plant from "components/plants/Plant";
 import InProgress from "components/shared/InProgress";
-import { Table } from 'reactstrap';
+import {Table} from 'reactstrap';
 
 const PLANTS_FETCH_DELAY = 250;
 
@@ -20,13 +20,13 @@ class Plants extends React.PureComponent {
 
   componentDidMount() {
     this.fetchPlants().finally(() => {
-      this.setState({ inProgress: false });
+      this.setState({inProgress: false});
     });
   }
 
   fetchPlants() {
     const requestUrl = "http://gentle-tor-07382.herokuapp.com/plants/";
-    this.setState({ inProgress: true });
+    this.setState({inProgress: true});
     return this.props.delayFetch(PLANTS_FETCH_DELAY, (resolve, reject) => {
       axios
         .get(requestUrl)
@@ -35,11 +35,11 @@ class Plants extends React.PureComponent {
           // const plants = data.map((item) => (item.name));
           const plants = data.map(item => item);
           const successPlants = true;
-          this.setState({ plants, successPlants });
+          this.setState({plants, successPlants});
           resolve();
         })
         .catch((error) => {
-          this.setState({ successPlants: false });
+          this.setState({successPlants: false});
           reject();
         });
     });
@@ -47,15 +47,15 @@ class Plants extends React.PureComponent {
 
 
   render() {
-    const { plants, successPlants, inProgress } = this.state;
+    const {plants, successPlants, inProgress} = this.state;
     const titles = ['#', 'name', 'CategorySlug']
     return (
       <Card className="mb-4">
         <CardBody>
-          <InProgress inProgress={inProgress} />
+          <InProgress inProgress={inProgress}/>
           {successPlants === false && <p>Nie udało się pobrać Kwiatow</p>}
           {successPlants && (
-            <Table className="plants">
+            <Table striped>
               <thead>
               <tr>
                 <th>id</th>
@@ -75,6 +75,7 @@ class Plants extends React.PureComponent {
                 <th>last_fertilized</th>
               </tr>
               </thead>
+              <tbody>
               {plants.map((plant, index, arr) => (
                 <Plant
                   name={plant.name}
@@ -95,6 +96,7 @@ class Plants extends React.PureComponent {
                   last_fertilized={plant.last_fertilized}
                 />
               ))}
+              </tbody>
             </Table>
           )}
         </CardBody>
