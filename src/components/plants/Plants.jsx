@@ -33,8 +33,8 @@ class Plants extends React.PureComponent {
         .then((response) => {
           const data = response.data;
           const plants = data.map((item) => {
-            const { id, name } = item;
-            return { id, name };
+            const { id, name, category_slug } = item;
+            return { id, name, category_slug };
           });
           const successPlants = true;
           this.setState({ plants, successPlants });
@@ -61,9 +61,9 @@ class Plants extends React.PureComponent {
               <thead>
                 <tr>
 
-                  <th>{'#'}</th>
-                  <th>{'name'}</th>
-                  <th>{'CategorySlug'}</th>
+                  {titles.map(title => (
+                    <th>{title}</th>
+                  ))}
                 </tr>
               </thead>
               <tbody>

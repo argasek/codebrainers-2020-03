@@ -23,14 +23,14 @@ class PlantasticContainer extends React.PureComponent {
       <Container>
         <Switch>
           <Route exact path={ROUTE_PLANTS}>
-            <PlantCreate 
+            <PlantCreate
               fertilizingFrequency={fertilizingFrequency}
               inputOnChange={inputOnChange}
               plantName={plantName}
               someSelectField={someSelectField}
             />
             <Plants
-              delayFetch={delayFetch} 
+              delayFetch={delayFetch}
             />
           </Route>
           <Route path={ROUTE_CATEGORIES}>
@@ -39,7 +39,8 @@ class PlantasticContainer extends React.PureComponent {
             />
           </Route>
           <Route path={ROUTE_ROOMS}>
-            <Rooms />
+            <Rooms
+              delayFetch={delayFetch} />
           </Route>
         </Switch>
       </Container>
