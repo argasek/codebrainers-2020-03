@@ -7,8 +7,11 @@ import { plantDifficultyLevels } from 'constants/PlantConstants';
 class PlantRow extends React.PureComponent {
 
   getDifficultyLabel(difficulty) {
-    const plantDifficulty = plantDifficultyLevels.find(plantDifficulty => plantDifficulty.value === difficulty);
-    return plantDifficulty.label;
+    let result = [];
+    for (let i = 0; i < difficulty; i++) {
+      result.push(<img className='mr-1' width='16' src='https://raw.githubusercontent.com/twitter/twemoji/master/assets/72x72/1f1ea.png'/>);
+    }
+    return result;
   }
 
   render() {
@@ -22,7 +25,7 @@ class PlantRow extends React.PureComponent {
 
     return (
       <tr>
-        {/*<td>{ plant.id }</td>*/}
+        {/*<td>{ plant.id }</td>*/ }
         <td>{ plant.name }</td>
         <td>{ plant.category }</td>
         <td>{ plant.wateringInterval }</td>
@@ -31,8 +34,8 @@ class PlantRow extends React.PureComponent {
         <td>{ plant.requiredHumidity }</td>
         <td>{ plant.requiredTemperature }</td>
         <td>{ difficultyLabel }</td>
-        {/*<td>{ plant.lastWatered }</td>*/}
-        {/*<td>{ plant.lastFertilized }</td>*/}
+        {/*<td>{ plant.lastWatered }</td>*/ }
+        {/*<td>{ plant.lastFertilized }</td>*/ }
       </tr>
     );
   }

@@ -38,7 +38,6 @@ class Plants extends React.PureComponent {
             plant.fromPlain(item);
             return plant;
           });
-          debugger;
           const successPlants = true;
           this.setState({ plants, successPlants });
           resolve();
