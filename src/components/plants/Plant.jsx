@@ -5,6 +5,7 @@ import './Plant.scss';
 class Plant extends React.PureComponent {
 
   render() {
+
     return (
       // <div>
       //   <p>{ this.props.id } { this.props.name }</p>
