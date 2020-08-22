@@ -2,9 +2,10 @@ import { Card, CardBody } from "reactstrap";
 import React from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
-import Plant from "components/plants/Plant";
+import PlantRow from "components/plants/PlantRow";
 import InProgress from "components/shared/InProgress";
 import { Table } from 'reactstrap';
+import Plant from 'models/Plant';
 
 const PLANTS_FETCH_DELAY = 250;
 
@@ -32,8 +33,12 @@ class Plants extends React.PureComponent {
         .get(requestUrl)
         .then((response) => {
           const data = response.data;
-          // const plants = data.map((item) => (item.name));
-          const plants = data.map(item => item);
+          const plants = data.map(item => {
+            const plant = new Plant();
+            plant.fromPlain(item);
+            return plant;
+          });
+          debugger;
           const successPlants = true;
           this.setState({ plants, successPlants });
           resolve();
@@ -78,7 +83,7 @@ class Plants extends React.PureComponent {
               <tbody>
               {
                 plants.map((plant, index, arr) => (
-                  <Plant
+                  <PlantRow
                     plant={ plant }
                     key={ index }
                   />
