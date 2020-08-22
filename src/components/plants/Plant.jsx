@@ -5,24 +5,25 @@ import './Plant.scss';
 class Plant extends React.PureComponent {
 
   render() {
+    const {plant} = this.props;
 
     return (
         <tr>
-          <td>{this.props.id}</td>
-          <td>{this.props.name}</td>
-          {/*<td>{this.props.url}</td>*/}
-          <td>{this.props.category}</td>
-          {/*<td>{this.props.category_slug}</td>*/}
-          <td>{this.props.watering_interval}</td>
-          <td>{this.props.fertilizing_interval}</td>
-          <td>{this.props.required_exposure}</td>
-          <td>{this.props.required_humidity}</td>
-          <td>{this.props.required_temperature}</td>
+          <td>{plant.id}</td>
+          <td>{plant.name}</td>
+          {/*<td>{plant.url}</td>*/}
+          <td>{plant.category}</td>
+          {/*<td>{plant.category_slug}</td>*/}
+          <td>{plant.watering_interval}</td>
+          <td>{plant.fertilizing_interval}</td>
+          <td>{plant.required_exposure}</td>
+          <td>{plant.required_humidity}</td>
+          <td>{plant.required_temperature}</td>
           {/*<td>{blooming​}</td>*/}
-          <td>{this.props.difficulty}</td>
+          <td>{plant.difficulty}</td>
           {/*<td>{room​}</td>*/}
-          <td>{this.props.last_watered}</td>
-          <td>{this.props.last_fertilized}</td>
+          <td>{plant.last_watered}</td>
+          <td>{plant.last_fertilized}</td>
         </tr>
     )
   }
