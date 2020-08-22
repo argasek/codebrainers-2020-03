@@ -9,7 +9,7 @@ import PlantCreate from 'components/plants/PlantCreate';
 import axios from 'axios';
 import Category from 'models/Category';
 
-const CATEGORIES_FETCH_DELAY = 200;
+const CATEGORIES_FETCH_DELAY = 2500;
 
 
 class PlantasticContainer extends React.PureComponent {
@@ -86,6 +86,8 @@ class PlantasticContainer extends React.PureComponent {
             <Plants
               delayFetch={delayFetch}
               categories={categories}
+              successCategories={successCategories}
+              categoriesInProgress={categoriesInProgress}
             />
           </Route>
           <Route path={ROUTE_CATEGORIES}>

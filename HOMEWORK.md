@@ -1,3 +1,23 @@
+### 2020-08-22
+
+#### Task 1
+
+Have a look at function `formatIntervalAsString()` in `PlantRow.jsx`. It's messy, alright? The reason behind is that
+this function uses a lot of ["Magic numbers"](https://en.wikipedia.org/wiki/Magic_number_(programming)). Go be a hero
+and refactor the code in such way that it:
+* works correctly
+* you're fully able to explain it to the absent students ;-)
+
+You can either make your own computations or utilize an excellent [Moment.js](https://momentjs.com/) library.
+
+Do not worry about leap years, [leap seconds](https://en.wikipedia.org/wiki/Leap_second), etc. 
+
+#### Task 2
+
+Currently, spinner is shown when loading Plants or Categories. However, if fetching Plants or Categories fails, the
+spinner is shown as long as all of the operations do not finish. Make a change to the code so the spinner is no longer
+presented to the user if any of the fetch operations from API fails (for whatever reason).
+
 ### 2020-08-20
 
 Take a look what's being returned from API (fetch from server) for all pages (i.e.) Plants, Categories and Rooms.

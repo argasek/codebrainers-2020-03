@@ -1,4 +1,4 @@
-import { Card, CardBody } from "reactstrap";
+import { Alert, Card, CardBody } from "reactstrap";
 import React from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
@@ -7,7 +7,7 @@ import InProgress from "components/shared/InProgress";
 import { Table } from 'reactstrap';
 import Plant from 'models/Plant';
 
-const PLANTS_FETCH_DELAY = 10000;
+const PLANTS_FETCH_DELAY = 250;
 
 class Plants extends React.PureComponent {
   constructor(props) {
@@ -15,19 +15,19 @@ class Plants extends React.PureComponent {
     this.state = {
       plants: [],
       successPlants: undefined,
-      inProgress: false,
+      plantsInProgress: false,
     };
   }
 
   componentDidMount() {
     this.fetchPlants().finally(() => {
-      this.setState({ inProgress: false });
+      this.setState({ plantsInProgress: false });
     });
   }
 
   fetchPlants() {
     const requestUrl = "http://gentle-tor-07382.herokuapp.com/plants/";
-    this.setState({ inProgress: true });
+    this.setState({ plantsInProgress: true });
     return this.props.delayFetch(PLANTS_FETCH_DELAY, (resolve, reject) => {
       axios
         .get(requestUrl)
@@ -51,15 +51,20 @@ class Plants extends React.PureComponent {
 
 
   render() {
-    const { delayFetch, categories } = this.props;
-    const { plants, successPlants, inProgress } = this.state;
+    const { delayFetch, categories, successCategories, categoriesInProgress } = this.props;
+    const { plants, successPlants, plantsInProgress } = this.state;
+    const success = successCategories && successPlants;
+    const inProgress = categoriesInProgress || plantsInProgress;
+
+
     const titles = [ '#', 'name', 'CategorySlug' ]
     return (
       <Card className="mb-4">
         <CardBody>
           <InProgress inProgress={ inProgress }/>
-          { successPlants === false && <p>Nie udało się pobrać Kwiatow</p> }
-          { successPlants && (
+          { successCategories === false && <Alert color="danger">Unable to fetch categories</Alert> }
+          { successPlants === false && <Alert color="danger">Unable to fetch plants</Alert> }
+          { success && (
             <Table striped>
               <thead>
               <tr>

@@ -8,7 +8,7 @@ class Categories extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      inProgress: false,
+      plantsInProgress: false,
       successCategories: undefined,
       categories: [],
     };
@@ -28,7 +28,7 @@ class Categories extends React.PureComponent {
       <Card>
         <CardBody>
           <div className="app-container">
-            <InProgress inProgress={ categoriesInProgress }/>
+            <InProgress plantsInProgress={ categoriesInProgress }/>
             {
               successCategories === false &&
               <p>Nie udało się pobrać Kategorii</p>
