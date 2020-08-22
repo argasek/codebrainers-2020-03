@@ -63,21 +63,21 @@ class Plants extends React.PureComponent {
             <Table striped>
               <thead>
               <tr>
-                <th>id</th>
-                <th>name</th>
+                {/*<th>id</th>*/}
+                <th>Name</th>
                 {/*<th>url</th>*/ }
-                <th>category</th>
+                <th>Category</th>
                 {/*<th>category_slug</th>*/ }
-                <th>watering_interval</th>
-                <th>fertilizing_interval</th>
-                <th>required_exposure</th>
-                <th>required_humidity</th>
-                <th>required_temperature</th>
+                <th>Watering interval</th>
+                <th>Fertilizing interval</th>
+                <th>Exposure</th>
+                <th>Humidity</th>
+                <th>Temperature</th>
                 {/*<th>blooming​</th>*/ }
-                <th>difficulty</th>
+                <th>Difficulty</th>
                 {/*<th>room​</th>*/ }
-                <th>last_watered</th>
-                <th>last_fertilized</th>
+                {/*<th>last_watered</th>*/}
+                {/*<th>last_fertilized</th>*/}
               </tr>
               </thead>
               <tbody>
