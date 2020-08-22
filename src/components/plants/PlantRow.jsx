@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Plant.scss';
 import Plant from 'models/Plant';
+import Categories from "../categories/Categories";
 import { plantDifficultyLevels } from 'constants/PlantConstants';
 
 class PlantRow extends React.PureComponent {
@@ -9,7 +10,8 @@ class PlantRow extends React.PureComponent {
   getDifficultyLabel(difficulty) {
     let result = [];
     for (let i = 0; i < difficulty; i++) {
-      result.push(<img className='mr-1' width='16' src='https://raw.githubusercontent.com/twitter/twemoji/master/assets/72x72/1f1ea.png' />);
+      result.push(<img key={i} className='mr-1' width='16'
+                       src='https://raw.githubusercontent.com/twitter/twemoji/master/assets/72x72/1f1ea.png'/>);
     }
     return result;
   }
@@ -23,35 +25,40 @@ class PlantRow extends React.PureComponent {
     let seconds = Math.round(interval % 60);
     seconds = Math.floor(seconds / 60)
 
-    return `Day(s): ${days}, hour(s): ${hours}, minute(s): ${minutes}, second(s): ${seconds} - interval ${interval}`
+    return `Day(s): ${ days }, hour(s): ${ hours }, minute(s): ${ minutes }, second(s): ${ seconds } - interval ${ interval }`
 
   }
 
-  render() {
+  getCategoryLabel(categoryId) {
 
+    return '';
+  }
+
+  render() {
 
 
     /**
      * @type Plant
      */
     const plant = this.props.plant;
-
+    const { delayFetch, categories } = this.props;
     const difficultyLabel = this.getDifficultyLabel(plant.difficulty);
     const wateringIntervalLabel = this.formatIntervalAsString(plant.wateringInterval)
+    console.log(categories);
 
     return (
       <tr>
-        {/*<td>{ plant.id }</td>*/}
-        <td>{plant.name}</td>
-        <td>{plant.category}</td>
-        <td>{wateringIntervalLabel}</td>
-        <td>{plant.fertilizingInterval}</td>
-        <td>{plant.requiredExposure}</td>
-        <td>{plant.requiredHumidity}</td>
-        <td>{plant.requiredTemperature}</td>
-        <td>{difficultyLabel}</td>
-        {/*<td>{ plant.lastWatered }</td>*/}
-        {/*<td>{ plant.lastFertilized }</td>*/}
+        {/*<td>{ plant.id }</td>*/ }
+        <td>{ plant.name }</td>
+        <td>{ plant.category }</td>
+        <td>{ wateringIntervalLabel }</td>
+        <td>{ plant.fertilizingInterval }</td>
+        <td>{ plant.requiredExposure }</td>
+        <td>{ plant.requiredHumidity }</td>
+        <td>{ plant.requiredTemperature }</td>
+        <td>{ difficultyLabel }</td>
+        {/*<td>{ plant.lastWatered }</td>*/ }
+        {/*<td>{ plant.lastFertilized }</td>*/ }
       </tr>
     );
   }

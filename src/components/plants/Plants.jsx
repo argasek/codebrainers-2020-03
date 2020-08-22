@@ -51,6 +51,7 @@ class Plants extends React.PureComponent {
 
 
   render() {
+    const { delayFetch, categories } = this.props;
     const { plants, successPlants, inProgress } = this.state;
     const titles = [ '#', 'name', 'CategorySlug' ]
     return (
@@ -62,7 +63,7 @@ class Plants extends React.PureComponent {
             <Table striped>
               <thead>
               <tr>
-                {/*<th>id</th>*/}
+                {/*<th>id</th>*/ }
                 <th>Name</th>
                 {/*<th>url</th>*/ }
                 <th>Category</th>
@@ -75,8 +76,8 @@ class Plants extends React.PureComponent {
                 {/*<th>blooming​</th>*/ }
                 <th>Difficulty</th>
                 {/*<th>room​</th>*/ }
-                {/*<th>last_watered</th>*/}
-                {/*<th>last_fertilized</th>*/}
+                {/*<th>last_watered</th>*/ }
+                {/*<th>last_fertilized</th>*/ }
               </tr>
               </thead>
               <tbody>
@@ -85,6 +86,8 @@ class Plants extends React.PureComponent {
                   <PlantRow
                     plant={ plant }
                     key={ index }
+                    delayFetch={ delayFetch }
+                    categories={ categories }
                   />
                 ))
               }
