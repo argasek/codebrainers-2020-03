@@ -2,48 +2,42 @@ import { Card, CardBody, ListGroup } from "reactstrap";
 import React from "react";
 import CategoryItem from "components/categories/CategoryItem";
 import InProgress from "components/shared/InProgress";
-
+import PropTypes from "prop-types";
+import { categoriesPropTypes } from 'proptypes/CommonPropTypes';
+import OperationFailed from 'components/shared/OperationFailed';
 
 class Categories extends React.PureComponent {
-  constructor(props) {
-    super(props)
-    this.state = {
-      plantsInProgress: false,
-      successCategories: undefined,
-      categories: [],
-    };
+
+  componentDidMount() {
+    this.props.fetchCategories();
   }
 
-
   render() {
-
     const {
       categories,
-      successCategories,
+      categoriesErrorMessage,
       categoriesInProgress,
+      categoriesSuccess,
     } = this.props;
-
 
     return (
       <Card>
         <CardBody>
           <div className="app-container">
-            <InProgress plantsInProgress={ categoriesInProgress }/>
+            <InProgress inProgress={ categoriesInProgress } />
+            <OperationFailed isFailed={ categoriesSuccess === false }>
+              <strong>Failed to fetch categories.</strong>
+              { ' Reason: ' }
+              { categoriesErrorMessage }
+            </OperationFailed>
             {
-              successCategories === false &&
-              <p>Nie udało się pobrać Kategorii</p>
-            }
-            {
-              successCategories &&
+              categoriesSuccess &&
               <ListGroup className="categories">
                 {
-                  categories.map((item, index, arr) =>
+                  categories.map((category) =>
                     <CategoryItem
-                      category={ item }
-                      label='category'
-                      key={ index }
-                      isLastItem={ arr.length - 1 === index }
-                      index={ index }
+                      category={ category }
+                      key={ category.id }
                     />
                   )
                 }
@@ -52,9 +46,17 @@ class Categories extends React.PureComponent {
           </div>
         </CardBody>
       </Card>
-    )
+    );
   }
 }
+
+Categories.propTypes = {
+  categories: categoriesPropTypes,
+  categoriesErrorMessage: PropTypes.string.isRequired,
+  categoriesInProgress: PropTypes.bool.isRequired,
+  categoriesSuccess: PropTypes.bool,
+  fetchCategories: PropTypes.func.isRequired,
+};
 
 
 export default Categories;
