@@ -1,12 +1,13 @@
-import React from "react";
-import axios from "axios";
-import Api from "constants/Api";
-import { ROOMS_FETCH_DELAY, delay } from "shared/Debug";
-import { plainToClass } from "serializers/Serializer";
-import Room from "models/Room";
+import React from 'react';
+import axios from 'axios';
+import Api from 'constants/Api';
+import { delay, ROOMS_FETCH_DELAY } from 'shared/Debug';
+import { plainToClass } from 'serializers/Serializer';
+import Room from 'models/Room';
 
 const withRooms = (WrappedComponent) => {
   return class extends React.PureComponent {
+
     constructor(props) {
       super(props);
       this.state = {
@@ -89,6 +90,6 @@ const withRooms = (WrappedComponent) => {
       );
     }
   };
-}
+};
 
 export default withRooms;

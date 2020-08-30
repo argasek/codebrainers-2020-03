@@ -1,8 +1,7 @@
 import React from "react";
 import "./Plant.scss";
 import find from 'lodash-es/find';
-import * as moment from 'moment';
-
+import moment from 'moment-es6';
 import {
   plantDifficultyOptions,
   plantExposureOptions,
@@ -11,17 +10,18 @@ import {
   plantHumidityUnknown,
   plantTemperatureOptions,
 } from "constants/PlantConstants";
-import { categoriesPropTypes, plantPropTypes } from 'proptypes/CommonPropTypes';
+import { plantPropTypes } from 'proptypes/PlantsPropTypes';
+import { categoriesPropTypes } from 'proptypes/CategoriesPropTypes';
 import PlantExposureIcon from 'components/plants/icons/PlantExposureIcon';
 import PlantHumidityIcon from 'components/plants/icons/PlantHumidityIcon';
-
-// import moment from 'moment';
+import { roomsPropTypes } from 'proptypes/RoomsPropTypes';
+import PlantBloomingIcon from 'components/plants/icons/PlantBloomingIcon';
 
 class Plant extends React.PureComponent {
 
   findValueByKey(options, valueToFind) {
     const id = options.findIndex((propValue) => propValue.id === valueToFind);
-    return (id !== -1 ? options[id].name : 'UNKNOWN');
+    return (id !== -1 ? options[id].name : '¯\\_(ツ)_/¯');
   }
 
   render() {
@@ -34,6 +34,8 @@ class Plant extends React.PureComponent {
     const asYmd = (value) => moment.isMoment(value) ? value.format('YYYY-MM-DD') : '';
     const asAgo = (value) => moment.isMoment(value) ? value.fromNow() : '';
 
+    const plantCategory = this.findValueByKey(plantCategories, plant.category);
+    const plantDifficulty = this.findValueByKey(plantDifficultyOptions, plant.difficulty);
     /**
      * @type PlantExposure
      */
@@ -42,24 +44,26 @@ class Plant extends React.PureComponent {
      * @type PlantHumidity
      */
     const plantHumidity = find(plantHumidityOptions, { id: plant.requiredHumidity }) || plantHumidityUnknown;
-    const plantCategory = this.findValueByKey(plantCategories, plant.category);
-    const plantRoom = this.findValueByKey(plantRooms, plant.room);
     const plantLastFertilized = asYmd(plant.lastFertilized);
     const plantLastWatered = asAgo(plant.lastWatered);
+    const plantRoom = this.findValueByKey(plantRooms, plant.room);
+    const plantTemperature = this.findValueByKey(plantTemperatureOptions, plant.requiredTemperature);
 
     return (
       <tr key={ plant.id }>
         <td>{ plant.name }</td>
         <td>{ plantCategory }</td>
         <td className="plant-attribute-icon text-center" title={ plantExposure.name }>
-          <PlantExposureIcon plantExposure={ plantExposure }/>
+          <PlantExposureIcon plantExposure={ plantExposure } />
         </td>
         <td className="plant-attribute-icon-sm text-center">
-          <PlantHumidityIcon plantHumidity={ plantHumidity }/>
+          <PlantHumidityIcon plantHumidity={ plantHumidity } />
         </td>
-        <td>{ this.findValueByKey(plantTemperatureOptions, plant.requiredTemperature) }</td>
-        <td>{ plant.blooming.toString() }</td>
-        <td>{ this.findValueByKey(plantDifficultyOptions, plant.difficulty) }</td>
+        <td>{ plantTemperature }</td>
+        <td className="plant-attribute-icon text-center">
+          <PlantBloomingIcon plantBlooming={ plant.blooming } />
+        </td>
+        <td>{ plantDifficulty }</td>
         <td>{ plantRoom }</td>
         <td>{ plantLastFertilized }</td>
         <td>{ plantLastWatered }</td>
@@ -71,6 +75,7 @@ class Plant extends React.PureComponent {
 Plant.propTypes = {
   plant: plantPropTypes,
   plantCategories: categoriesPropTypes,
+  plantRooms: roomsPropTypes,
 };
 
 export default Plant;

@@ -1,3 +1,12 @@
+### 2020-08-30
+
+### Task 1
+
+Change the code this way that it renders "Create Plant: Zielistka, Very easy" if user has typed "Zielistka" into
+"Plant name" field and currently selected Difficulty option is "Very easy". If user changes the Difficulty option
+it should be reflected in the card title accordingly. If "Plant name" is empty do not show anything (neither initially
+nor later on up modifications).
+
 ### 2020-08-22
 
 #### Task 1

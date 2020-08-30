@@ -1,18 +1,17 @@
 import { Card, CardBody } from "reactstrap";
 import React from "react";
-import PropTypes from "prop-types";
 import axios from "axios";
-import InProgress from "components/shared/InProgress";
+import InProgress from 'components/shared/InProgress';
 import Plants from "components/plants/Plants";
 import { delay, PLANTS_FETCH_DELAY } from "shared/Debug";
-import OperationFailed from "components/shared/OperationFailed";
-import Api from "constants/Api";
-import Plant from "models/Plant";
-import { plainToClass } from "serializers/Serializer";
-import Room from "models/Room";
-import { withCategoriesPropTypes } from "proptypes/CommonPropTypes";
-import withCategories from "components/categories/Categories";
-import withRooms from "components/rooms/Rooms";
+import OperationFailed from 'components/shared/OperationFailed';
+import Api from 'constants/Api';
+import Plant from 'models/Plant';
+import { plainToClass } from 'serializers/Serializer';
+import withCategories from 'components/categories/Categories';
+import withRooms from 'components/rooms/Rooms';
+import { withRoomsPropTypes } from 'proptypes/RoomsPropTypes';
+import { withCategoriesPropTypes } from 'proptypes/CategoriesPropTypes';
 
 class PlantsContainer extends React.PureComponent {
   constructor(props) {
@@ -22,39 +21,42 @@ class PlantsContainer extends React.PureComponent {
       plantsErrorMessage: undefined,
       plantsSuccess: undefined,
       plantsInProgress: false,
-      allSuccess: undefined,
     };
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log(prevState, this.state);
-  }
-
   componentDidMount() {
-    const categoriesPromise = this.props.fetchCategories();
     const roomsPromise = this.props.fetchRooms();
+    const categoriesPromise = this.props.fetchCategories();
     const plantsPromise = this.fetchPlantsDelayed();
 
-    Promise.all([ categoriesPromise, roomsPromise, plantsPromise ])
-      .then(() => this.setState({ allSuccess: true }))
-      .catch(() => this.setState({ allSuccess: false }))
+    this.setState({ plantsInProgress: true });
+
+    const additionalPromises = Promise.all([
+      roomsPromise,
+      categoriesPromise,
+      plantsPromise,
+    ]);
+
+    additionalPromises
+      .finally(() => this.setState({ plantsInProgress: false }));
+
   }
 
   fetchPlants = (resolve, reject) => {
-    return axios
-      .get(Api.PLANTS)
+    return axios.get(Api.PLANTS)
       .then((response) => {
         const data = response.data;
-        const plants = data.map((item) => plainToClass(Plant, item));
+        const plants = data
+          .map(item => plainToClass(Plant, item));
 
-        const plantsErrorMessage = "";
+        const plantsErrorMessage = '';
         const plantsSuccess = true;
         this.setState({
           plants,
           plantsSuccess,
           plantsErrorMessage,
         });
-        console.log("Fetched plants");
+        console.log('Fetched plants');
         resolve();
       })
       .catch((error) => {
@@ -65,26 +67,31 @@ class PlantsContainer extends React.PureComponent {
           plantsSuccess,
         });
         reject();
-      })
-      .finally(() => {
-        this.setState({plantsInProgress: false});
-      })
+      });
   };
 
   fetchPlantsDelayed() {
-    this.setState({ plantsInProgress: true });
-    console.log("Method PlantsContainer.fetchPlantsDelayed() fired");
+    console.log('Method PlantsContainer.fetchPlantsDelayed() fired');
     return delay(PLANTS_FETCH_DELAY, this.fetchPlants);
   }
 
   render() {
-    const { plants, plantsErrorMessage, plantsInProgress, plantsSuccess, allSuccess } = this.state;
+    const {
+      plants,
+      plantsErrorMessage,
+      plantsInProgress,
+      plantsSuccess,
+    } = this.state;
 
-    const { categories, rooms, categoriesInProgress, roomsInProgress } = this.props;
-    const inProgress = categoriesInProgress || roomsInProgress || plantsInProgress;
-    console.log(categoriesInProgress, roomsInProgress, plantsInProgress);
+    const {
+      categories,
+      categoriesSuccess,
+      rooms,
+      roomsSuccess
+    } = this.props;
 
     const totalPlants = plants.length;
+    const success = categoriesSuccess && plantsSuccess && roomsSuccess;
 
     return (
       <Card className="mb-4">
@@ -92,15 +99,22 @@ class PlantsContainer extends React.PureComponent {
           <h3 className="mb-3">List of plants</h3>
           <p>You have { totalPlants } plants in all your rooms.</p>
 
-          <InProgress inProgress={ inProgress } />
+          <InProgress inProgress={ plantsInProgress } />
 
           <OperationFailed isFailed={ plantsSuccess === false }>
             <strong>Failed to fetch plants.</strong>
-            { " Reason: " }
+            { ' Reason: ' }
             { plantsErrorMessage }
           </OperationFailed>
 
-          { allSuccess === true && <Plants plants={ plants } categories={ categories } rooms={ rooms } /> }
+          {
+            success &&
+            <Plants
+              categories={ categories }
+              plants={ plants }
+              rooms={ rooms }
+            />
+          }
         </CardBody>
       </Card>
     );
@@ -108,9 +122,8 @@ class PlantsContainer extends React.PureComponent {
 }
 
 PlantsContainer.propTypes = {
+  ...withRoomsPropTypes,
   ...withCategoriesPropTypes,
-  rooms: PropTypes.arrayOf(PropTypes.instanceOf(Room)).isRequired,
-  fetchRooms: PropTypes.func.isRequired,
 };
 
 export default withRooms(withCategories(PlantsContainer));

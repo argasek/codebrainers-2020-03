@@ -2,16 +2,20 @@ import React from "react";
 import { FormGroup, Label } from "reactstrap";
 import { Field } from "formik";
 import PlantasticInput from 'components/shared/form/PlantasticInput';
+import PlantFormFields from 'components/plants/plant-form/constants/PlantFormFields';
 
 const PlantFormName = (props) => {
   const plantNameId = "plantName";
   return (
     <FormGroup>
-      <Label for={ plantNameId }>Plant name:</Label>
+      <Label for={ plantNameId }>
+        Plant name:
+        <span className="asterisk" />
+      </Label>
       <Field
         component={ PlantasticInput }
         id={ plantNameId }
-        name="name"
+        name={ PlantFormFields.NAME }
         placeholder="Monstera Deliciosa"
         type="text"
       />

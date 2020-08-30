@@ -1,14 +1,16 @@
 import React from "react";
 import { Table } from "reactstrap";
 import Plant from "components/plants/Plant";
-import { categoriesPropTypes, plantsPropTypes } from 'proptypes/CommonPropTypes';
+import { plantsPropTypes } from 'proptypes/PlantsPropTypes';
+import { categoriesPropTypes } from 'proptypes/CategoriesPropTypes';
+import { roomsPropTypes } from 'proptypes/RoomsPropTypes';
 
 /**
  * This is an example of JSDoc comment.
  *
- * @param {array} plants Array of plants
- * @param {array} categories Array of categories
- * @param {array} rooms Array of rooms
+ * @param {Plant[]} plants Array of plants
+ * @param {Category[]} categories Array of categories
+ * @param {Room[]} categories Array of categories
  * @returns {*}
  * @constructor
  */
@@ -48,6 +50,7 @@ const Plants = ({ plants, categories, rooms }) => {
 Plants.propTypes = {
   plants: plantsPropTypes,
   categories: categoriesPropTypes,
+  rooms: roomsPropTypes,
 };
 
 export default Plants;
