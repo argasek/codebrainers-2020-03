@@ -17,7 +17,7 @@ const AuthenticatedContainer = () =>
         </Route>
         <Route path={ Routes.PLANTS }>
           <PlantsContainer/>
-          <PlantCreate/>
+          {/*<PlantCreate/>*/}
         </Route>
         <Route path={ Routes.CATEGORIES }>
           <CategoriesContainer/>

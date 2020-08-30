@@ -10,7 +10,7 @@ import Api from "constants/Api";
 import Plant from "models/Plant";
 import { plainToClass } from "serializers/Serializer";
 import Room from "models/Room";
-import { categoriesPropTypes, withCategoriesPropTypes } from "proptypes/CommonPropTypes";
+import { withCategoriesPropTypes } from "proptypes/CommonPropTypes";
 import withCategories from "components/categories/Categories";
 import withRooms from "components/rooms/Rooms";
 
@@ -26,32 +26,18 @@ class PlantsContainer extends React.PureComponent {
     };
   }
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    console.log(prevState, this.state);
+  }
+
   componentDidMount() {
     const categoriesPromise = this.props.fetchCategories();
     const roomsPromise = this.props.fetchRooms();
     const plantsPromise = this.fetchPlantsDelayed();
 
-    this.setState({ plantsInProgress: true });
-
-    roomsPromise
-      .then(() => {
-        console.log("roomsReady");
-        categoriesPromise
-          .then(() => {
-            console.log("categoryReady");
-            plantsPromise
-              .then(() => {
-                console.log("plantsReady");
-                this.setState({
-                  allSuccess: true,
-                });
-              })
-              .catch((plantError) => console.error(plantError))
-              .finally(() => this.setState({ plantsInProgress: false }));
-          })
-          .catch((categoryError) => console.log(categoryError));
-      })
-      .catch((roomsError) => console.error(roomsError));
+    Promise.all([ categoriesPromise, roomsPromise, plantsPromise ])
+      .then(() => this.setState({ allSuccess: true }))
+      .catch(() => this.setState({ allSuccess: false }))
   }
 
   fetchPlants = (resolve, reject) => {
@@ -83,6 +69,7 @@ class PlantsContainer extends React.PureComponent {
   };
 
   fetchPlantsDelayed() {
+    this.setState({ plantsInProgress: true });
     console.log("Method PlantsContainer.fetchPlantsDelayed() fired");
     return delay(PLANTS_FETCH_DELAY, this.fetchPlants);
   }
@@ -98,17 +85,17 @@ class PlantsContainer extends React.PureComponent {
       <Card className="mb-4">
         <CardBody>
           <h3 className="mb-3">List of plants</h3>
-          <p>You have {totalPlants} plants in all your rooms.</p>
+          <p>You have { totalPlants } plants in all your rooms.</p>
 
-          <InProgress inProgress={plantsInProgress} />
+          <InProgress inProgress={ plantsInProgress } />
 
-          <OperationFailed isFailed={plantsSuccess === false}>
+          <OperationFailed isFailed={ plantsSuccess === false }>
             <strong>Failed to fetch plants.</strong>
-            {" Reason: "}
-            {plantsErrorMessage}
+            { " Reason: " }
+            { plantsErrorMessage }
           </OperationFailed>
 
-          {allSuccess === true && <Plants plants={plants} categories={categories} rooms={rooms} />}
+          { allSuccess === true && <Plants plants={ plants } categories={ categories } rooms={ rooms } /> }
         </CardBody>
       </Card>
     );
