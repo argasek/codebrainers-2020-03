@@ -65,7 +65,10 @@ class PlantsContainer extends React.PureComponent {
           plantsSuccess,
         });
         reject();
-      });
+      })
+      .finally(() => {
+        this.setState({plantsInProgress: false});
+      })
   };
 
   fetchPlantsDelayed() {
@@ -77,7 +80,9 @@ class PlantsContainer extends React.PureComponent {
   render() {
     const { plants, plantsErrorMessage, plantsInProgress, plantsSuccess, allSuccess } = this.state;
 
-    const { categories, rooms } = this.props;
+    const { categories, rooms, categoriesInProgress, roomsInProgress } = this.props;
+    const inProgress = categoriesInProgress || roomsInProgress || plantsInProgress;
+    console.log(categoriesInProgress, roomsInProgress, plantsInProgress);
 
     const totalPlants = plants.length;
 
@@ -87,7 +92,7 @@ class PlantsContainer extends React.PureComponent {
           <h3 className="mb-3">List of plants</h3>
           <p>You have { totalPlants } plants in all your rooms.</p>
 
-          <InProgress inProgress={ plantsInProgress } />
+          <InProgress inProgress={ inProgress } />
 
           <OperationFailed isFailed={ plantsSuccess === false }>
             <strong>Failed to fetch plants.</strong>
