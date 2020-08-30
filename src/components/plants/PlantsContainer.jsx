@@ -9,8 +9,8 @@ import OperationFailed from 'components/shared/OperationFailed';
 import Api from 'constants/Api';
 import Plant from 'models/Plant';
 import { plainToClass } from 'serializers/Serializer';
-import Category from 'models/Category';
 import Room from 'models/Room';
+import { categoriesPropTypes } from "proptypes/CommonPropTypes";
 
 class PlantsContainer extends React.PureComponent {
   constructor(props) {
@@ -25,14 +25,19 @@ class PlantsContainer extends React.PureComponent {
 
   componentDidMount() {
     const categoriesPromise = this.props.fetchCategories();
+    const roomsPromise = this.props.fetchRooms();
     const plantsPromise = this.fetchPlantsDelayed();
 
     this.setState({ plantsInProgress: true });
 
-    categoriesPromise
-      .then(plantsPromise)
-      .finally(() => this.setState({ plantsInProgress: false }));
-
+    roomsPromise
+      .then(categoriesPromise
+        .then(plantsPromise
+          .finally(
+            () => this.setState({ plantsInProgress: false })
+          )
+        )
+      )
   }
 
   fetchPlants = (resolve, reject) => {
@@ -77,7 +82,8 @@ class PlantsContainer extends React.PureComponent {
     } = this.state;
 
     const {
-      categories
+      categories,
+      rooms,
     } = this.props;
 
     const totalPlants = plants.length;
@@ -88,7 +94,7 @@ class PlantsContainer extends React.PureComponent {
           <h3 className="mb-3">List of plants</h3>
           <p>You have { totalPlants } plants in all your rooms.</p>
 
-          <InProgress inProgress={ plantsInProgress } />
+          <InProgress inProgress={ plantsInProgress }/>
 
           <OperationFailed isFailed={ plantsSuccess === false }>
             <strong>Failed to fetch plants.</strong>
@@ -101,6 +107,7 @@ class PlantsContainer extends React.PureComponent {
             <Plants
               plants={ plants }
               categories={ categories }
+              rooms={ rooms }
             />
           }
         </CardBody>
@@ -110,7 +117,7 @@ class PlantsContainer extends React.PureComponent {
 }
 
 PlantsContainer.propTypes = {
-  categories: PropTypes.arrayOf(PropTypes.instanceOf(Category)).isRequired,
+  categories: categoriesPropTypes,
   rooms: PropTypes.arrayOf(PropTypes.instanceOf(Room)).isRequired,
   fetchCategories: PropTypes.func.isRequired,
   fetchRooms: PropTypes.func.isRequired,

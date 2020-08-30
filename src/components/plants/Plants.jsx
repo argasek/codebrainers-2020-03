@@ -8,10 +8,11 @@ import { categoriesPropTypes, plantsPropTypes } from 'proptypes/CommonPropTypes'
  *
  * @param {array} plants Array of plants
  * @param {array} categories Array of categories
+ * @param {array} rooms Array of rooms
  * @returns {*}
  * @constructor
  */
-const Plants = ({ plants, categories }) => {
+const Plants = ({ plants, categories, rooms }) => {
   return (
     <Table hover striped responsive>
       <thead className="thead-dark">
@@ -34,6 +35,7 @@ const Plants = ({ plants, categories }) => {
           <Plant
             plant={ plant }
             plantCategories={ categories }
+            plantRooms={ rooms }
             key={ plant.id }
           />
         ))

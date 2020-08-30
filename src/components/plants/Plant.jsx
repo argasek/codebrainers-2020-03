@@ -28,6 +28,7 @@ class Plant extends React.PureComponent {
     const {
       plant,
       plantCategories,
+      plantRooms,
     } = this.props;
 
     const asYmd = (value) => moment.isMoment(value) ? value.format('YYYY-MM-DD') : '';
@@ -42,6 +43,7 @@ class Plant extends React.PureComponent {
      */
     const plantHumidity = find(plantHumidityOptions, { id: plant.requiredHumidity }) || plantHumidityUnknown;
     const plantCategory = this.findValueByKey(plantCategories, plant.category);
+    const plantRoom = this.findValueByKey(plantRooms, plant.room);
     const plantLastFertilized = asYmd(plant.lastFertilized);
     const plantLastWatered = asAgo(plant.lastWatered);
 
@@ -50,15 +52,15 @@ class Plant extends React.PureComponent {
         <td>{ plant.name }</td>
         <td>{ plantCategory }</td>
         <td className="plant-attribute-icon text-center" title={ plantExposure.name }>
-          <PlantExposureIcon plantExposure={ plantExposure } />
+          <PlantExposureIcon plantExposure={ plantExposure }/>
         </td>
         <td className="plant-attribute-icon-sm text-center">
-          <PlantHumidityIcon plantHumidity={ plantHumidity } />
+          <PlantHumidityIcon plantHumidity={ plantHumidity }/>
         </td>
         <td>{ this.findValueByKey(plantTemperatureOptions, plant.requiredTemperature) }</td>
         <td>{ plant.blooming.toString() }</td>
         <td>{ this.findValueByKey(plantDifficultyOptions, plant.difficulty) }</td>
-        <td>{ plant.room }</td>
+        <td>{ plantRoom }</td>
         <td>{ plantLastFertilized }</td>
         <td>{ plantLastWatered }</td>
       </tr>
