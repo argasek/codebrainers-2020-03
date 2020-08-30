@@ -10,7 +10,8 @@ import Api from 'constants/Api';
 import Plant from 'models/Plant';
 import { plainToClass } from 'serializers/Serializer';
 import Room from 'models/Room';
-import { categoriesPropTypes } from "proptypes/CommonPropTypes";
+import { categoriesPropTypes, withCategoriesPropTypes } from "proptypes/CommonPropTypes";
+import withCategories from 'components/categories/Categories';
 
 class PlantsContainer extends React.PureComponent {
   constructor(props) {
@@ -117,10 +118,9 @@ class PlantsContainer extends React.PureComponent {
 }
 
 PlantsContainer.propTypes = {
-  categories: categoriesPropTypes,
+  ...withCategoriesPropTypes,
   rooms: PropTypes.arrayOf(PropTypes.instanceOf(Room)).isRequired,
-  fetchCategories: PropTypes.func.isRequired,
   fetchRooms: PropTypes.func.isRequired,
 };
 
-export default PlantsContainer;
+export default withCategories(PlantsContainer);

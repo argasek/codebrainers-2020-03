@@ -14,6 +14,14 @@ const fasIconPropType = PropTypes.shape({
   prefix: PropTypes.string.isRequired,
 });
 
+const withCategoriesPropTypes = {
+  categories: categoriesPropTypes,
+  categoriesErrorMessage: PropTypes.string.isRequired,
+  categoriesInProgress: PropTypes.bool.isRequired,
+  categoriesSuccess: PropTypes.bool,
+  fetchCategories: PropTypes.func.isRequired,
+};
+
 const plantPropTypes = PropTypes.instanceOf(Plant).isRequired;
 
 const plantsPropTypes = PropTypes.arrayOf(plantPropTypes).isRequired;
@@ -30,4 +38,5 @@ export {
   plantsPropTypes,
   roomPropType,
   roomsPropTypes,
+  withCategoriesPropTypes,
 };
