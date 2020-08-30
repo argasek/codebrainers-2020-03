@@ -12,6 +12,7 @@ import { plainToClass } from 'serializers/Serializer';
 import Room from 'models/Room';
 import { categoriesPropTypes, withCategoriesPropTypes } from "proptypes/CommonPropTypes";
 import withCategories from 'components/categories/Categories';
+import withRooms from "components/rooms/Rooms";
 
 class PlantsContainer extends React.PureComponent {
   constructor(props) {
@@ -123,4 +124,4 @@ PlantsContainer.propTypes = {
   fetchRooms: PropTypes.func.isRequired,
 };
 
-export default withCategories(PlantsContainer);
+export default withRooms(withCategories(PlantsContainer));

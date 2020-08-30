@@ -5,6 +5,7 @@ import InProgress from "components/shared/InProgress";
 import PropTypes from "prop-types";
 import { roomsPropTypes } from "proptypes/CommonPropTypes";
 import OperationFailed from "components/shared/OperationFailed";
+import withRooms from "components/rooms/Rooms";
 
 class RoomsContainer extends React.PureComponent {
   componentDidMount() {

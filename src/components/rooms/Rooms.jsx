@@ -1,49 +1,94 @@
-import { Card, CardBody, ListGroup } from "reactstrap";
 import React from "react";
-import RoomItem from "components/rooms/RoomItem";
-import InProgress from "components/shared/InProgress";
-import PropTypes from "prop-types";
-import { roomsPropTypes } from "proptypes/CommonPropTypes";
-import OperationFailed from "components/shared/OperationFailed";
+import axios from "axios";
+import Api from "constants/Api";
+import { ROOMS_FETCH_DELAY, delay } from "shared/Debug";
+import { plainToClass } from "serializers/Serializer";
+import Room from "models/Room";
 
-class Rooms extends React.PureComponent {
-  componentDidMount() {
-    this.props.fetchRooms();
-  }
+const withRooms = (WrappedComponent) => {
+  return class extends React.PureComponent {
+    constructor(props) {
+      super(props);
+      this.state = {
+        roomsErrorMessage: '',
+        roomsInProgress: false,
+        roomsSuccess: undefined,
+        rooms: [],
+      };
+    }
 
-  render() {
-    const { rooms, roomsErrorMessage, roomsInProgress, roomsSuccess } = this.props;
+    /**
+     *
+     * @param {function} resolve
+     * @param {function} reject
+     * @returns {Promise}
+     */
+    fetchRooms = (resolve, reject) => {
+      return axios.get(Api.ROOMS)
+        .then((response) => this.fetchRoomsSuccess(response, resolve))
+        .catch((error) => this.fetchRoomsFailure(error, reject));
+    };
 
-    return (
-      <Card>
-        <CardBody>
-          <div className="app-container">
-            <InProgress inProgress={roomsInProgress} />
-            <OperationFailed isFailed={roomsSuccess === false}>
-              <strong>Failed to fetch rooms.</strong>
-              {" Reason: "}
-              {roomsErrorMessage}
-            </OperationFailed>
-            {roomsSuccess && (
-              <ListGroup className="rooms">
-                {rooms.map((room) => (
-                  <RoomItem room={room} key={room.id} />
-                ))}
-              </ListGroup>
-            )}
-          </div>
-        </CardBody>
-      </Card>
-    );
-  }
+    /**
+     * Fetch Rooms with some predefined delay.
+     * @returns {Promise<TimerHandler>}
+     */
+    fetchRoomsDelayed = () => {
+      console.log('Method Rooms.fetchRoomsDelayed() fired');
+
+      const roomsInProgress = true;
+      this.setState({ roomsInProgress });
+
+      return delay(ROOMS_FETCH_DELAY, this.fetchRooms)
+        .finally(this.fetchRoomsFinally);
+    };
+
+    fetchRoomsFailure = (error, reject) => {
+      const roomsSuccess = false;
+      const roomsErrorMessage = error.message;
+
+      this.setState({
+        roomsErrorMessage,
+        roomsSuccess,
+      });
+
+      reject();
+    };
+
+    fetchRoomsFinally = () => {
+      console.log('Rooms finally');
+      const roomsInProgress = false;
+      this.setState({ roomsInProgress });
+    };
+
+    fetchRoomsSuccess = (response, resolve) => {
+      const data = response.data;
+
+      const rooms = data.map(item => plainToClass(Room, item));
+      const roomsSuccess = true;
+      const roomsErrorMessage = '';
+
+      this.setState({
+        rooms,
+        roomsErrorMessage,
+        roomsSuccess,
+      });
+
+      console.log('Fetched rooms');
+
+      resolve();
+    };
+
+    render() {
+      return (
+        <WrappedComponent
+          { ...this.state }
+          { ...this.props }
+          fetchRooms={ this.fetchRoomsDelayed }
+        />
+      );
+    }
+  };
 }
 
-Rooms.propTypes = {
-  rooms: roomsPropTypes,
-  roomsErrorMessage: PropTypes.string.isRequired,
-  roomsInProgress: PropTypes.bool.isRequired,
-  roomsSuccess: PropTypes.bool,
-  fetchRooms: PropTypes.func.isRequired,
-};
-
-export default Rooms;
+export default withRooms;
