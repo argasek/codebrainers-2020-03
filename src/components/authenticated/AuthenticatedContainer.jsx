@@ -19,8 +19,8 @@ class AuthenticatedContainer extends React.PureComponent {
             <AuthenticatedDashboard />
           </Route>
           <Route path={ Routes.PLANTS }>
-            <PlantsContainer />
             <PlantCreate />
+            <PlantsContainer />
           </Route>
           <Route path={ Routes.CATEGORIES }>
             <CategoriesContainer />

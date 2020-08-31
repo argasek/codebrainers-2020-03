@@ -1,4 +1,4 @@
-import { Button } from 'reactstrap';
+import { Button, FormGroup } from 'reactstrap';
 import {
   plantDifficultyOptions,
   plantExposureOptions,
@@ -20,8 +20,6 @@ import PlantFormFields from 'components/plants/plant-form/constants/PlantFormFie
 class PlantForm extends React.PureComponent {
   constructor(props) {
     super(props);
-
-    debugger;
     this.setupInitialValues();
   }
 
@@ -47,10 +45,19 @@ class PlantForm extends React.PureComponent {
   }
 
   render() {
+
+    const getDifficultyObject= (name) => plantDifficultyOptions.find(item => item.name === name);
+
     const onChange = (currentState, previousState) => {
       const { name } = currentState.values;
-      console.log(currentState.values);
+
+      const inputName = this.props.plantDifficultyChange;
+      currentState.values.difficulty = (!!getDifficultyObject(inputName))? getDifficultyObject(inputName).value : 1;
+
       this.props.onPlantNameChange(name);
+
+      // currentState.values.name = this.props.plantUpdateName;
+      // console.log(currentState.values);
     };
 
     const onSubmit = (values) => {
@@ -61,7 +68,7 @@ class PlantForm extends React.PureComponent {
       <Formik initialValues={ this.initialValues } onSubmit={ onSubmit }>
         { ({ isValid }) => (
           <Form className="plant-form">
-            <Effect onChange={ onChange } />
+            <Effect onChange={ onChange }/>
             <PlantFormInformation />
             <PlantFormCultivation />
             <PlantFormMaintenance />
