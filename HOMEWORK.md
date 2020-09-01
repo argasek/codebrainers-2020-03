@@ -1,3 +1,11 @@
+### 2020-09-01
+
+### Task 1
+
+Implement some code that displays an error message somewhere inside of <LoginForm></LoginForm> when user
+does not authenticate successfully. (Use any garbage input as username and password in order to obtain this
+effect).
+
 ### 2020-08-30
 
 ### Task 1
