@@ -1,10 +1,4 @@
 import { Button } from 'reactstrap';
-import {
-  plantDifficultyOptions,
-  plantExposureOptions,
-  plantHumidityOptions,
-  plantTemperatureOptions,
-} from 'constants/PlantConstants';
 import React from 'react';
 import { Form, Formik } from 'formik';
 import PlantFormInformation from 'components/plants/plant-form/sections/PlantFormInformation';
@@ -12,49 +6,29 @@ import PlantFormCultivation from 'components/plants/plant-form/sections/PlantFor
 import PlantFormMaintenance from 'components/plants/plant-form/sections/PlantFormMaintenance';
 import PropTypes from 'prop-types';
 import Effect from 'components/shared/form/Effect';
-import Plant from 'models/Plant';
-import { classToPlain } from 'serializers/Serializer';
-import pick from 'lodash-es/pick';
 import PlantFormFields from 'components/plants/plant-form/constants/PlantFormFields';
 
 class PlantForm extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    debugger;
     this.setupInitialValues();
   }
 
   setupInitialValues() {
-    const firstOf = (arr) => arr[0].id;
-    const plant = new Plant();
-    const fieldNames = Object.values(PlantFormFields);
-
-    const plain = classToPlain(plant, false);
-
-    const initialValues = pick(
-      plain,
-      fieldNames
-    );
-
-    this.initialValues = Object.assign(initialValues, {
-      [PlantFormFields.REQUIRED_EXPOSURE]: firstOf(plantExposureOptions),
-      [PlantFormFields.REQUIRED_HUMIDITY]: firstOf(plantHumidityOptions),
-      [PlantFormFields.DIFFICULTY]: firstOf(plantDifficultyOptions),
-      [PlantFormFields.REQUIRED_TEMPERATURE]: firstOf(plantTemperatureOptions),
-    });
-
+    this.initialValues = PlantFormFields.getInitialValues();
   }
 
   render() {
     const onChange = (currentState, previousState) => {
       const { name } = currentState.values;
-      console.log(currentState.values);
       this.props.onPlantNameChange(name);
     };
 
     const onSubmit = (values) => {
-      console.log(values);
+      const plant = PlantFormFields.toModel(values);
+
+      this.props.onSubmit(plant);
     };
 
     return (
@@ -78,6 +52,7 @@ class PlantForm extends React.PureComponent {
 
 PlantForm.propTypes = {
   onPlantNameChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default PlantForm;
