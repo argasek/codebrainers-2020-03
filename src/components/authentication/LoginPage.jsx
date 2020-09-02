@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardBody, CardHeader, Col, Container, Row } from 'reactstrap';
 import LoginForm from 'components/authentication/login-form/LoginForm';
 import PropTypes from 'prop-types';
@@ -6,8 +6,10 @@ import axios from 'axios';
 import Api from 'constants/Api';
 import Logo from 'components/shared/Logo';
 import './LoginPage.scss';
+import { Form } from "formik";
 
 const LoginPage = ({ onTokenObtained }) => {
+  const [ message, setMessage ] = useState('');
 
   /**
    * @param {Credentials} credentials
@@ -18,8 +20,13 @@ const LoginPage = ({ onTokenObtained }) => {
       .then((response) => {
         const { token } = response.data;
         onTokenObtained(token);
+        let message = '';
+        setMessage(message);
+
       })
       .catch((error) => {
+        let message = 'Username or password is incorrect';
+        setMessage(message);
         // TODO: some decent error handling
         console.warn('TODO');
       });
@@ -36,10 +43,10 @@ const LoginPage = ({ onTokenObtained }) => {
             <CardBody>
               <Row>
                 <Col xs={ 12 } md={ 4 } className="application-logo-container">
-                  <Logo className="application-logo" />
+                  <Logo className="application-logo"/>
                 </Col>
                 <Col xs={ 12 } md={ 8 }>
-                  <LoginForm onSubmit={ onSignIn } />
+                  <LoginForm onSubmit={ onSignIn } message={ message }/>
                 </Col>
               </Row>
             </CardBody>

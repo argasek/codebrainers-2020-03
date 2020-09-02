@@ -1,5 +1,5 @@
-import { Button } from 'reactstrap';
-import React from 'react';
+import { Button, Col } from 'reactstrap';
+import React, { useState } from 'react';
 import { Form, Formik } from 'formik';
 import PropTypes from 'prop-types';
 import LoginFormFields from 'components/authentication/constants/LoginFormFields';
@@ -9,7 +9,6 @@ import LoginFormPassword from 'components/authentication/login-form/fields/Login
 const LoginForm = (props) => {
 
   const initialValues = LoginFormFields.getInitialValues();
-
   const onSubmit = (values) => {
     const credentials = LoginFormFields.toModel(values);
     props.onSubmit(credentials);
@@ -19,8 +18,13 @@ const LoginForm = (props) => {
     <Formik initialValues={ initialValues } onSubmit={ onSubmit }>
       { ({ isValid }) => (
         <Form className="login-form">
-          <LoginFormUsername />
-          <LoginFormPassword />
+          <LoginFormUsername/>
+          <LoginFormPassword/>
+          { props.message !== '' && (
+            <div className="alert alert-danger">
+              { props.message }
+            </div>
+          ) }
           <Button color="primary" type="submit" className="mt-3" disabled={ !isValid }>
             Sign In
           </Button>
