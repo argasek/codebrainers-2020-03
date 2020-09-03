@@ -1,45 +1,58 @@
-import React from 'react';
-import { Card, CardBody, CardHeader, Col, Container, Row } from 'reactstrap';
-import LoginForm from 'components/authentication/login-form/LoginForm';
-import PropTypes from 'prop-types';
-import axios from 'axios';
-import Api from 'constants/Api';
-import Logo from 'components/shared/Logo';
-import './LoginPage.scss';
+import React from "react";
+import { Card, CardBody, CardHeader, Col, Container, Row } from "reactstrap";
+import LoginForm from "components/authentication/login-form/LoginForm";
+import PropTypes from "prop-types";
+import axios from "axios";
+import Api from "constants/Api";
+import Logo from "components/shared/Logo";
+import "./LoginPage.scss";
+import { useState } from "react";
 
 const LoginPage = ({ onTokenObtained }) => {
-
   /**
    * @param {Credentials} credentials
    * @return
    */
+  const [noValidationMessage, SetNoValidationMessage] = useState("");
+  let noValidationCounter = 0;
+
   const onSignIn = (credentials) => {
-    return axios.post(Api.AUTH_TOKEN, credentials)
+    return axios
+      .post(Api.AUTH_TOKEN, credentials)
       .then((response) => {
         const { token } = response.data;
         onTokenObtained(token);
+        let noValidationMessage = "Invalid password or login";
+        SetNoValidationMessage(noValidationMessage);
+        noValidationCounter = 0;
       })
       .catch((error) => {
         // TODO: some decent error handling
-        console.warn('TODO');
+        let noValidationMessage = "Invalid password or login";
+        SetNoValidationMessage(noValidationMessage);
+        noValidationCounter++;
+        if (noValidationCounter >= 5) {
+          alert("Please confirm if you are not a bot");
+        }
+        console.log(noValidationCounter);
+
+        console.warn("TODO");
       });
   };
 
   return (
     <Container className="h-100">
       <Row className="h-100 align-items-start align-items-md-center justify-content-center ">
-        <Col xs={ { size: 12 } } sm={ { size: 10 } } lg={ { size: 8 } }>
+        <Col xs={{ size: 12 }} sm={{ size: 10 }} lg={{ size: 8 }}>
           <Card className="login-container">
-            <CardHeader>
-              Welcome! Please sign in.
-            </CardHeader>
+            <CardHeader>Welcome! Please sign in.</CardHeader>
             <CardBody>
               <Row>
-                <Col xs={ 12 } md={ 4 } className="application-logo-container">
+                <Col xs={12} md={4} className="application-logo-container">
                   <Logo className="application-logo" />
                 </Col>
-                <Col xs={ 12 } md={ 8 }>
-                  <LoginForm onSubmit={ onSignIn } />
+                <Col xs={12} md={8}>
+                  <LoginForm onSubmit={onSignIn} noValidationMessage={noValidationMessage} />
                 </Col>
               </Row>
             </CardBody>
@@ -53,6 +66,5 @@ const LoginPage = ({ onTokenObtained }) => {
 LoginPage.propTypes = {
   onTokenObtained: PropTypes.func.isRequired,
 };
-
 
 export default LoginPage;
