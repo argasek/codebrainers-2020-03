@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { delay, PLANTS_FETCH_DELAY } from "shared/Debug";
 import Plant from 'models/Plant';
-import { plainToClass } from 'serializers/Serializer';
+import { classToPlain, plainToClass } from 'serializers/Serializer';
 import withCategories from 'components/categories/Categories';
 import withRooms from 'components/rooms/Rooms';
 import { withRoomsPropTypes } from 'proptypes/RoomsPropTypes';
@@ -113,6 +113,14 @@ class PlantsPage extends React.PureComponent {
     return delay(PLANTS_FETCH_DELAY, this.fetchPlants);
   }
 
+  navigateToPlantList = () => {
+    this.props.history.push(Routes.PLANTS);
+  };
+
+  onSubmitPlantCreateSuccess = () => {
+    this.navigateToPlantList();
+  }
+
   /**
    * @param {Plant} plant
    */
@@ -122,6 +130,12 @@ class PlantsPage extends React.PureComponent {
     // const plants = [ ...this.state.plants ];
     // plants.unshift(plant);
     // this.setState({ plants });
+
+    const data = classToPlain(plant);
+    return axios.post(Api.PLANTS, data)
+      .then(this.onSubmitPlantCreateSuccess)
+      .catch(this.onSubmitPlantCreateError)
+
   };
 
   /**
