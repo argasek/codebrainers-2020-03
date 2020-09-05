@@ -2,36 +2,26 @@ import React from 'react';
 import { Container } from 'reactstrap';
 import { Route, Switch } from 'react-router-dom';
 import Routes from 'constants/Routes';
-import PlantsContainer from 'components/plants/PlantsContainer';
 import CategoriesContainer from 'components/categories/CategoriesContainer';
 import RoomsContainer from 'components/rooms/RoomsContainer';
 import Dashboard from 'components/dashboard/Dashboard';
+import PlantsPage from 'pages/plants/PlantsPage';
 
-class AuthenticatedContainer extends React.PureComponent {
+const AuthenticatedContainer = function () {
 
-  render() {
+  return (
+    <Container>
+      <Switch>
+        <Route path={ Routes.CATEGORIES } render={ () => <CategoriesContainer /> } />
+        <Route path={ Routes.PLANTS } render={ () => <PlantsPage /> } />
+        <Route path={ Routes.ROOMS } render={ () => <RoomsContainer /> } />
+        <Route exact path={ Routes.ROOT } render={ () => <Dashboard /> } />
+      </Switch>
+    </Container>
+  );
+};
 
-    return (
-      <Container>
-        <Switch>
-          <Route exact path={ Routes.ROOT }>
-            <Dashboard />
-          </Route>
-          <Route path={ Routes.PLANTS }>
-            <PlantsContainer />
-          </Route>
-          <Route path={ Routes.CATEGORIES }>
-            <CategoriesContainer />
-          </Route>
-          <Route path={ Routes.ROOMS }>
-            <RoomsContainer />
-          </Route>
-        </Switch>
-      </Container>
-    );
-  }
-}
+AuthenticatedContainer.propTypes = {};
 
 export default AuthenticatedContainer;
 
-AuthenticatedContainer.propTypes = {};

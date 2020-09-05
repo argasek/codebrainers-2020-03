@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import Api from 'constants/Api';
 import 'components/authentication/login/LoginPageContainer.scss';
 import LoadingPage from 'pages/loading/LoadingPage';
 import LoginPageContainer from 'components/authentication/login/LoginPageContainer';
-import get from 'lodash-es/get';
+import { Api } from 'services/Api';
 
 const LoginPage = ({ onTokenObtained }) => {
   const isDestroyed = useRef(false);
@@ -18,6 +17,7 @@ const LoginPage = ({ onTokenObtained }) => {
    */
   const onSignIn = (credentials, onSubmitError) => {
     setLoginInProgress(true);
+
     const onSignInErrorFn = (error) => onSignInError(error, onSubmitError);
 
     return axios.post(Api.AUTH_TOKEN, credentials)
@@ -27,10 +27,9 @@ const LoginPage = ({ onTokenObtained }) => {
   };
 
   const onSignInError = (error, onSubmitError) => {
-    const { response } = error;
-    const apiErrors = get(response, 'data', {});
-    const status = get(response, 'status', 0);
-    onSubmitError(apiErrors, status);
+    const api = new Api();
+    const { errors, status } = api.getErrorsFromApi(error);
+    onSubmitError(errors, status);
   };
 
   const onSignInFinally = () => {

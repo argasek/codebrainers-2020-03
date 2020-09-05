@@ -1,5 +1,6 @@
 import Credentials from 'models/Credentials';
 import { FormikApiErrors } from 'components/shared/form/FormikApiErrors';
+import * as Yup from 'yup';
 
 class LoginFormFields {
   USERNAME = 'username';
@@ -15,13 +16,27 @@ class LoginFormFields {
     return FormikApiErrors.getInitialStatus();
   }
 
+  getValidationSchema() {
+    const validationSchema = Yup.object().shape({
+      [this.USERNAME]: Yup.string().trim().required('Please provide your login.'),
+      [this.PASSWORD]: Yup.string().required('Please provide your password.'),
+    });
+
+    return validationSchema;
+  }
+
+  getValidateOnMount() {
+    return true;
+  }
+
   /**
    *
-   * @param apiErrors
+   * @param {object} apiErrors
+   * @param {ApiErrorStatus} status
    * @return {ApiErrors}
    */
-  getStatusFromApi(apiErrors) {
-    return FormikApiErrors.getStatusFromApi(apiErrors);
+  getStatusFromApi(apiErrors, status) {
+    return FormikApiErrors.getStatusFromApi(apiErrors, status);
   }
 
   /**
