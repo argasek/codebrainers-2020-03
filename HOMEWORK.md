@@ -1,3 +1,15 @@
+### 2020-09-05
+
+### Task 1
+
+Investigate the source of error during creation of Plant. Check for possible incorrect format of REST data for the
+following issues:
+* incorrect data format (`string` type data submitted while `number` expected)
+* maybe `name` field cannot be empty
+* excessive fields submitted (like `url`, `category_slug`, etc.)
+
+Try to fix all these issues. In order to remove the excessive fields, utilize `delete` JS operator. 
+
 ### 2020-09-01
 
 ### Task 1
